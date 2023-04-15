@@ -1,0 +1,14 @@
+.bestProductH2 {
+  text-align: center;
+  font-size: 6rem;
+}
+
+.container {
+  max-width: 130rem;
+  padding: 9.6rem 0;
+  margin: 0 auto;
+}
+
+.bestProductsMain {
+  margin: 0 3.2rem;
+}

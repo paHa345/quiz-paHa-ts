@@ -1,0 +1,6 @@
+.questionMarkers {
+  padding-top: 2.4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.8rem;
+}

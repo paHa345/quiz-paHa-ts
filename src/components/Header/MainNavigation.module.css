@@ -1,0 +1,22 @@
+.headerNavList {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 2.4rem;
+}
+
+.headerNavLink:link,
+.headerNavLink:visited {
+  text-decoration: none;
+  font-size: 2.4rem;
+  color: #000000;
+  padding: 2rem;
+}
+
+.headerNavLink:hover,
+.headerNavLink:active {
+  color: #09253f;
+  /* text-decoration: underline; */
+  background-color: #f7b8b8;
+  border-radius: 1rem;
+}

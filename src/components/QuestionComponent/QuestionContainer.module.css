@@ -1,0 +1,8 @@
+.question {
+  font-size: 2.4rem;
+  border: 1px solid #f0d9da;
+  padding: 2.4rem;
+
+  border-radius: 1rem;
+  box-shadow: 0.6rem 0.6rem 0.3rem 0.2rem #f9ecec;
+}

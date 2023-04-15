@@ -1,0 +1,6 @@
+.socialIcons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3.2rem;
+  padding: 2.4rem 0;
+}

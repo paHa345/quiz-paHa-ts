@@ -1,0 +1,21 @@
+.footer {
+  background-color: #f9ecec;
+}
+
+.footerGridContainer {
+  margin: 0 3.2rem;
+  display: grid;
+  gap: 3.2rem;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.container {
+  max-width: 130rem;
+  padding: 9.6rem 0;
+  margin: 0 auto;
+}
+
+.footerSocial {
+  display: flex;
+
+  flex-direction: column;
+}

@@ -1,0 +1,16 @@
+.selected {
+  background-color: #f5f3a0;
+}
+
+.unswersElement {
+  text-decoration: none;
+  list-style: none;
+  margin: 0.8rem;
+  padding-left: 0.8rem;
+  background-color: #ecf2f9;
+  border-radius: 1rem;
+}
+
+.unswersElement:hover {
+  cursor: pointer;
+}

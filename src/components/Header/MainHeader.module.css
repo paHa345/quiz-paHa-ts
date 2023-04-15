@@ -1,0 +1,8 @@
+.header {
+  /* max-width: 130rem; */
+  background-color: #f9ecec;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+}
