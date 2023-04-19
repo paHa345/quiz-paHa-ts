@@ -4,6 +4,19 @@ import { useEffect, useReducer } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
+export interface IGame {
+  message: string;
+  item: {
+    _id: string;
+    id: string;
+    questions: {
+      text: string;
+      true: number;
+      answers: number[];
+    }[];
+  };
+}
+
 function LevelOne() {
   const dispatch = useDispatch();
   interface AppState {
@@ -18,6 +31,15 @@ function LevelOne() {
   useEffect(() => {
     dispatch(appStateActions.setName("ooo"));
   }, [dispatch]);
+
+  useEffect(() => {
+    async function fetchQuestions() {
+      const request = await fetch("../api/games/testSpace");
+      const data: IGame = await request.json();
+      console.log(data.item.questions[0].text);
+    }
+    fetchQuestions();
+  }, []);
 
   return <Game></Game>;
 }

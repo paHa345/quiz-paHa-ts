@@ -6,7 +6,7 @@ const MainNavigation = () => {
     <nav className={styles.headerNav}>
       <ul className={styles.headerNavList}>
         <li>
-          <Link href="#" className={styles.headerNavLink}>
+          <Link href="/leaderBoard" className={styles.headerNavLink}>
             {" "}
             Список лидеров
           </Link>
