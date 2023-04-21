@@ -16,6 +16,8 @@ export interface IResponseGame {
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const gameName = req.query.gameName;
+  console.log(gameName);
+
   let client;
   let db;
   try {
