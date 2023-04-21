@@ -1,8 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export interface IAppStateSlice {
+  appState: {
+    name: string;
+    value: number;
+    gamesName: { id: string; _id: string }[] | null;
+    currentGamename: string | null;
+  };
+}
+
 interface IAppState {
   name: string;
   value: number;
+  gamesName: { id: string; _id: string }[] | null;
+  currentGamename: string | null;
 }
 
 interface AppAction {
@@ -13,6 +24,8 @@ interface AppAction {
 export const initAppState: IAppState = {
   name: "",
   value: 0,
+  gamesName: null,
+  currentGamename: null,
 };
 
 export const appStateSlice = createSlice({
@@ -20,7 +33,27 @@ export const appStateSlice = createSlice({
   initialState: initAppState,
   reducers: {
     setName(state, action) {
-      state.name = "paHa";
+      state.name = action.payload;
+    },
+    setGamesName(
+      state,
+      action: {
+        payload: { id: string; _id: string }[];
+        type: string;
+      }
+    ) {
+      state.gamesName = action.payload;
+    },
+    setCurrentGameName(
+      state,
+      action: {
+        payload: string;
+        type: string;
+      }
+    ) {
+      if (action.payload.trim()) {
+        state.currentGamename = action.payload;
+      }
     },
   },
 });

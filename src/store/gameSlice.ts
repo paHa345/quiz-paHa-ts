@@ -25,4 +25,4 @@ export const gameSlice = createSlice({
   },
 });
 
-export const appStateActions = gameSlice.actions;
+export const gameActions = gameSlice.actions;

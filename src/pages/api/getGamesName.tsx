@@ -15,7 +15,6 @@ export interface IResponseGame {
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const gameName = req.query.gameName;
   let client;
   let db;
   try {
@@ -32,11 +31,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     const db = client.db();
 
-    const result = await db
-      .collection("testQuestions")
-      .findOne<IResponseGame[]>({ id: gameName });
+    const result = await db.collection("testQuestions").find().toArray();
 
-    res.status(200).json({ message: "success", item: result });
+    const projection = { id: 1 };
+    const cursor = await db
+      .collection("testQuestions")
+      .find()
+      .project(projection)
+      .toArray();
+
+    res.status(200).json({ message: "success", item: cursor });
     client.close();
   }
 }

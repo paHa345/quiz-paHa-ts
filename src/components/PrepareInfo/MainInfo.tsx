@@ -1,5 +1,5 @@
 import styles from "./MainInfo.module.css";
-import SetName from "./SetName";
+import SetGameData from "./SetGameData";
 
 const MainInfo = () => {
   return (
@@ -8,7 +8,7 @@ const MainInfo = () => {
         <div className={styles.container}>
           <div className={styles.bestProductsMain}>
             <h2 className={styles.bestProductH2}>Викторина</h2>
-            <SetName></SetName>
+            <SetGameData></SetGameData>
           </div>
         </div>
       </section>

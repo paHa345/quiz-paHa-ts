@@ -1,5 +1,6 @@
 import LederBoadsContainer from "@/components/LeaderBoards/LeaderBoardSComponent";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 type propsType = {
   name: string;

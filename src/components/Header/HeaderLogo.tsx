@@ -1,9 +1,10 @@
 import Image from "next/image";
 import styles from "./HeaderLogo.module.css";
+import Link from "next/link";
 
 const HeaderLogo = () => {
   return (
-    <a href="index.html" className={styles.headerLogo}>
+    <Link href="/" className={styles.headerLogo}>
       <Image
         className={styles.headerImg}
         priority
@@ -13,7 +14,7 @@ const HeaderLogo = () => {
         src="/logo.png"
         alt="logo"
       ></Image>
-    </a>
+    </Link>
   );
 };
 
