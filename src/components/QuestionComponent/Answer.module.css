@@ -1,7 +1,3 @@
-.selected {
-  background-color: #f5f3a0;
-}
-
 .unswersElement {
   text-decoration: none;
   list-style: none;
@@ -13,4 +9,8 @@
 
 .unswersElement:hover {
   cursor: pointer;
+}
+
+.selected {
+  background-color: #f5f3a0;
 }

@@ -1,28 +1,30 @@
 import Game from "@/components/GameComponent/Game";
+import GoGame from "@/components/GameComponent/GoGame";
 import {
   IAppStateSlice,
   appStateActions,
   appStateSlice,
 } from "@/store/app-stateSlice";
+import { IGameQuestions, IGameSlice, gameActions } from "@/store/gameSlice";
 import { useRouter } from "next/router";
-import { useEffect, useReducer } from "react";
+import { Fragment, useEffect, useReducer } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
-export interface IGameSlice {
-  message: string;
-  item: {
-    _id: string;
-    id: string;
-    questions: {
-      text: string;
-      true: number;
-      answers: number[];
-    }[];
-  };
-}
+// export interface IGameSlice {
+//   message: string;
+//   item: {
+//     _id: string;
+//     id: string;
+//     questions: {
+//       text: string;
+//       true: number;
+//       answers: number[];
+//     }[];
+//   };
+// }
 
-function LevelOne() {
+function GamePage() {
   const dispatch = useDispatch();
   const router = useRouter();
   interface AppState {
@@ -33,8 +35,13 @@ function LevelOne() {
   }
   const name = useSelector((state: IAppStateSlice) => state.appState.name);
   console.log(name);
+
   const currentGameName = useSelector(
     (state: IAppStateSlice) => state.appState.currentGamename
+  );
+
+  const gameStatus = useSelector(
+    (state: IGameSlice) => state.gameState.startGame
   );
 
   useEffect(() => {
@@ -46,13 +53,19 @@ function LevelOne() {
   useEffect(() => {
     async function fetchQuestions() {
       const request = await fetch(`../api/games/${currentGameName}`);
-      const data: IGameSlice = await request.json();
-      console.log(data.item.questions[0].text);
+      const data: { status: string; item: IGameQuestions } =
+        await request.json();
+      dispatch(gameActions.setQuestions(data.item));
     }
     fetchQuestions();
   }, []);
 
-  return <Game></Game>;
+  return (
+    <Fragment>
+      {!gameStatus && <GoGame></GoGame>}
+      {gameStatus && <Game></Game>}
+    </Fragment>
+  );
 }
 
-export default LevelOne;
+export default GamePage;

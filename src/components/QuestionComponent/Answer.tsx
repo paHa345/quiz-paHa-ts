@@ -2,11 +2,20 @@ import styles from "./Answer.module.css";
 
 interface Answerprops {
   name: string;
+  choosed: boolean;
+  clickAnswer: (event: any) => void;
 }
 
-const Answer = ({ name }: Answerprops) => {
+const Answer = ({ name, choosed, clickAnswer }: Answerprops) => {
+  const selected = choosed ? styles.selected : "";
+
   return (
-    <li className={`${styles.selected} ${styles.unswersElement}`}>{name}</li>
+    <li
+      onClick={clickAnswer}
+      className={`${selected} ${styles.unswersElement}`}
+    >
+      {name}
+    </li>
   );
 };
 
