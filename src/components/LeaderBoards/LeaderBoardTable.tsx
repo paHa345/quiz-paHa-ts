@@ -12,9 +12,9 @@ const LeaderBoardTable = () => {
     .sort((a, b) => {
       return Number(b.points) - Number(a.points);
     })
-    .map((el) => {
+    .map((el, index) => {
       return (
-        <tr key={el.name}>
+        <tr key={`${el.name}-${index}`}>
           <td>{el.name}</td>
           <td>{el.points}</td>
         </tr>

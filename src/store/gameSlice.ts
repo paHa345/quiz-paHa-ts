@@ -18,10 +18,12 @@ export interface IGameSlice {
     name: string;
     value: number;
     startGame: boolean;
+    resultGame: boolean;
     questions: null | IGameQuestions;
     currentQuestionNumber: number;
     currentQuestion: null | ICurrentQuestion;
     choosedAnswer: number;
+    points: number;
   };
 }
 
@@ -29,10 +31,12 @@ interface IGameState {
   name: string;
   value: number;
   startGame: boolean;
+  resultGame: boolean;
   questions: null | IGameQuestions;
   currentQuestionNumber: number;
   currentQuestion: null | ICurrentQuestion;
   choosedAnswer: number;
+  points: number;
 }
 
 interface GameAction {
@@ -64,10 +68,12 @@ export const initGameState: IGameState = {
   name: "",
   value: 0,
   startGame: false,
+  resultGame: false,
   questions: null,
   currentQuestionNumber: -100,
   currentQuestion: null,
   choosedAnswer: -100,
+  points: 0,
 };
 
 export const gameSlice = createSlice({
@@ -80,6 +86,9 @@ export const gameSlice = createSlice({
     setStartGameStatus(state, action: ISetStartGameStatusAction) {
       state.startGame = action.payload;
     },
+    setResultGameStatus(state, action: { type: string; payload: boolean }) {
+      state.resultGame = action.payload;
+    },
     setQuestions(state, action: ISetQuestionsAction) {
       state.questions = action.payload;
     },
@@ -88,6 +97,12 @@ export const gameSlice = createSlice({
     },
     setChoosedAnswer(state, action: { type: string; payload: number }) {
       state.choosedAnswer = action.payload;
+    },
+    setPointsAfterQuestion(state, action: { type: string; payload: number }) {
+      state.points = state.points + action.payload;
+    },
+    resetPoints(state, action: { type: string; payload: number }) {
+      state.points = 0;
     },
   },
 });

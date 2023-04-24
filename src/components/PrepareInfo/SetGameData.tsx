@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SetGameData.module.css";
 import StartGameButton from "./StartGameButton";
 import ChooseGame from "./ChooseGame";
 import { useSelector } from "react-redux";
-import { IAppStateSlice } from "@/store/app-stateSlice";
+import { IAppStateSlice, appStateActions } from "@/store/app-stateSlice";
+import { useDispatch } from "react-redux";
+import { gameActions } from "@/store/gameSlice";
 
 const SetGameData = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState<string>("");
   const setNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -15,6 +18,10 @@ const SetGameData = () => {
     (state: IAppStateSlice) => state.appState.currentGamename
   );
   console.log(currentGameName);
+
+  useEffect(() => {
+    dispatch(appStateActions.setCurrentGameName(null));
+  }, []);
 
   return (
     <div className={styles.loginForm}>

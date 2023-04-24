@@ -1,0 +1,15 @@
+.resultGameContainer {
+  padding: 3.2rem 0;
+  display: grid;
+  gap: 3.2rem;
+  margin: 0 3.2rem;
+}
+
+.container {
+  max-width: 130rem;
+  padding: 9.6rem 0;
+  margin: 0 auto;
+}
+.loadSpinner {
+  font-size: 8rem;
+}

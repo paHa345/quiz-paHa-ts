@@ -36,6 +36,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     res.status(200).json({ message: "success", item: result });
     client.close();
   }
+  if (req.method === "PATCH") {
+    console.log(req.body.leaderBoard);
+
+    const db = client.db();
+    const result = await db
+      .collection("leaderBoard")
+      .findOneAndUpdate(
+        { id: gameName },
+        { $set: { leaders: req.body.leaderBoard } }
+      );
+    res.status(200).json({ message: "success", item: result });
+    client.close();
+  }
 }
 
 export default handler;

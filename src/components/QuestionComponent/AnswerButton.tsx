@@ -1,8 +1,15 @@
 import styles from "./AnswerButton.module.css";
 
-const AnswerButton = () => {
+interface IAnswerButtonProps {
+  nextQuestion: () => void;
+}
+
+const AnswerButton = ({ nextQuestion }: IAnswerButtonProps) => {
   return (
-    <div className={`${styles.unswerButton} ${styles.cartOrderButton}`}>
+    <div
+      onClick={nextQuestion}
+      className={`${styles.unswerButton} ${styles.cartOrderButton}`}
+    >
       <a href="#">Ответить</a>
     </div>
   );

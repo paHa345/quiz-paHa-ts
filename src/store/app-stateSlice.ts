@@ -47,11 +47,15 @@ export const appStateSlice = createSlice({
     setCurrentGameName(
       state,
       action: {
-        payload: string;
+        payload: string | null;
         type: string;
       }
     ) {
-      if (action.payload.trim()) {
+      if (action.payload && action.payload.trim()) {
+        state.currentGamename = action.payload;
+      }
+
+      if (!action.payload) {
         state.currentGamename = action.payload;
       }
     },

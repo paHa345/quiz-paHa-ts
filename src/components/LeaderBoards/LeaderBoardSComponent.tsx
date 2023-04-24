@@ -7,12 +7,15 @@ import { leaderBoardStateActions } from "@/store/leaderBoardSlice";
 import { useSelector } from "react-redux";
 
 export interface ILeadersData {
-  id: string;
-  _id: string;
-  leaders: {
-    name: string;
-    points: string;
-  }[];
+  message: string;
+  item: {
+    id: string;
+    _id: string;
+    leaders: {
+      name: string;
+      points: string;
+    }[];
+  };
 }
 
 export interface IleaderData {
