@@ -1,12 +1,16 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styles from "./InLeaderTable.module.css";
 import { useSelector } from "react-redux";
 import {
   ILeadersData,
   IleaderData,
 } from "../LeaderBoards/LeaderBoardSComponent";
+import { ILeaderTableUser } from "@/types";
+import { IGameSlice } from "@/store/gameSlice";
+import { IAppStateSlice } from "@/store/app-stateSlice";
 
 interface lLeadersData {
+  numberInLeader: number | undefined;
   leadersData:
     | {
         name: string;
@@ -15,29 +19,49 @@ interface lLeadersData {
     | false;
 }
 
-const InLeaderTable = ({ leadersData }: lLeadersData) => {
+const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
   const currentLeaderData = useSelector(
     (state: IleaderData) => state.leaderState.currentLeadersData
   );
 
-  console.log(leadersData);
-  let tableEl;
+  const currentGameNamer = useSelector(
+    (state: IAppStateSlice) => state.appState.currentGamename
+  );
 
-  if (leadersData) {
-    tableEl = [...leadersData]
-      .sort((a, b) => {
-        return Number(b.points) - Number(a.points);
-      })
-      .map((el, index) => {
-        return (
-          <tr key={`${el.name}-${index}`}>
-            <td>{el.name}</td>
-            <td>{el.points}</td>
-          </tr>
-        );
-      });
-    console.log(tableEl);
+  const [table, setTable] = useState<any>();
+
+  async function setNewLeaderBoardTable(leadersData: ILeaderTableUser[]) {
+    const req = await fetch(`./api/leaderBoard/${currentGameNamer}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({ leadersData }),
+    });
+    const data = await req.json();
+    console.log(data);
   }
+
+  useEffect(() => {
+    if (leadersData) {
+      const tableEl = [...leadersData]
+        .sort((a, b) => {
+          return Number(b.points) - Number(a.points);
+        })
+        .map((el, index) => {
+          const currentUserResult =
+            index === numberInLeader ? `${styles.currentResilt}` : ``;
+          return (
+            <tr className={currentUserResult} key={`${el.name}-${index}`}>
+              <td>{el.name}</td>
+              <td>{el.points}</td>
+            </tr>
+          );
+        });
+      setTable(tableEl);
+      setNewLeaderBoardTable(leadersData);
+    }
+  }, []);
 
   return (
     <Fragment>
@@ -52,7 +76,7 @@ const InLeaderTable = ({ leadersData }: lLeadersData) => {
             <th>Количество баллов</th>
           </tr>
         </thead>
-        <tbody>{tableEl}</tbody>
+        <tbody>{table}</tbody>
       </table>
     </Fragment>
   );

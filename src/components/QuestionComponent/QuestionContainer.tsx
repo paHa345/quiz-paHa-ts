@@ -59,7 +59,6 @@ const QuestionContainer = () => {
       }
 
       dispatch(gameActions.setChoosedAnswer(-100));
-      dispatch(gameActions.setStartGameStatus(false));
       dispatch(gameActions.setResultGameStatus(true));
       router.push("/result");
     } else {

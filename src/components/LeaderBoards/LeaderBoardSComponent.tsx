@@ -3,19 +3,21 @@ import styles from "./LeaderBoardSComponent.module.css";
 import LeaderBoardSelector from "./LeaderBoardSelector";
 import LeaderBoardTable from "./LeaderBoardTable";
 import { useDispatch } from "react-redux";
-import { leaderBoardStateActions } from "@/store/leaderBoardSlice";
+import {
+  leaderBoardStateActions,
+  leaderBoardStateSlice,
+} from "@/store/leaderBoardSlice";
 import { useSelector } from "react-redux";
+import { appStateActions } from "@/store/app-stateSlice";
+import { gameActions } from "@/store/gameSlice";
 
 export interface ILeadersData {
-  message: string;
-  item: {
-    id: string;
-    _id: string;
-    leaders: {
-      name: string;
-      points: string;
-    }[];
-  };
+  id: string;
+  _id: string;
+  leaders: {
+    name: string;
+    points: string;
+  }[];
 }
 
 export interface IleaderData {
@@ -49,8 +51,19 @@ const LederBoadsContainer = () => {
   );
 
   const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(appStateActions.setCurrentGameName(null));
+    dispatch(gameActions.setStartGameStatus(false));
+    dispatch(gameActions.setInGameStatus(false));
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(leaderBoardStateActions.setLeadersData(null));
+    dispatch(leaderBoardStateActions.setCurrentLeadersData(null));
+
     async function fetchLeadersData() {
+      console.log("sis");
+
       const req = await fetch("./api/leaderBoard/allGameLeaders");
       const LeadersData = await req.json();
 

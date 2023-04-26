@@ -1,6 +1,7 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import styles from "./HeaderLogo.module.css";
 import Link from "next/link";
+Image;
 
 const HeaderLogo = () => {
   return (
@@ -10,7 +11,7 @@ const HeaderLogo = () => {
         priority
         height={120}
         width={120}
-        objectFit="cover"
+        // objectFit="cover"
         src="/logo.png"
         alt="logo"
       ></Image>

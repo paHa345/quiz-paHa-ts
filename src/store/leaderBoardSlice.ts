@@ -35,11 +35,13 @@ export const leaderBoardStateSlice = createSlice({
       state.leadersData = action.payload;
     },
     setCurrentLeadersData(state, action) {
-      if (action.payload.length > 0) {
+      if (action.payload?.length > 0) {
         const current = state.leadersData?.filter(
-          (el) => el.id === action.payload
+          (el) => el?.id === action.payload
         );
         state.currentLeadersData = current;
+      } else {
+        state.currentLeadersData = null;
       }
     },
   },

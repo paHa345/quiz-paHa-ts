@@ -1,0 +1,27 @@
+.cartOrderButton {
+  display: flex;
+  justify-content: center;
+  /* width: 70%; */
+}
+
+.cartOrderButton a:link,
+.cartOrderButton a:visited {
+  text-align: center;
+  font-size: 3.2rem;
+  width: 100%;
+  text-decoration: none;
+  color: #555;
+  background-color: #ecf2f9;
+
+  /* background-color: #c8d9eb; */
+  border-radius: 11px;
+  padding: 1.6rem 2.4rem;
+}
+
+.cartOrderButton a:hover,
+.cartOrderButton a:active {
+  /* background-color: #ecf2f9; */
+  background-color: #c8d9eb;
+
+  color: #02101f;
+}

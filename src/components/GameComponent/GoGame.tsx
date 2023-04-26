@@ -3,9 +3,12 @@ import styles from "./GoGame.module.css";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { IGameSlice, gameActions } from "@/store/gameSlice";
+import { IAppStateSlice } from "@/store/app-stateSlice";
+import { useRouter } from "next/router";
 
 const GoGame = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const currentQuestion = useSelector(
     (state: IGameSlice) => state.gameState.currentQuestion
@@ -19,12 +22,33 @@ const GoGame = () => {
     (state: IGameSlice) => state.gameState.questions
   );
 
+  const name = useSelector((state: IAppStateSlice) => state.appState.name);
+  console.log(name);
+
+  const currentGameName = useSelector(
+    (state: IAppStateSlice) => state.appState.currentGamename
+  );
+
+  const inGameStatus = useSelector(
+    (state: IGameSlice) => state.gameState.inGame
+  );
+
+  const gameStatus = useSelector(
+    (state: IGameSlice) => state.gameState.startGame
+  );
+
+  console.log(gameStatus);
+
   const clickGoGameButtonHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     dispatch(gameActions.setStartGameStatus(true));
   };
 
-  console.log(currentQuestion);
+  useEffect(() => {
+    if (!inGameStatus) {
+      router.push("/");
+    }
+  });
 
   useEffect(() => {
     dispatch(gameActions.setCurrentQuestionNumber(0));

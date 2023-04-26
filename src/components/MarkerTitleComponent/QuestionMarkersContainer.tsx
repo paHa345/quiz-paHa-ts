@@ -1,18 +1,30 @@
+import { useSelector } from "react-redux";
 import QuestionMarker from "./QuestionMarker";
 import styles from "./QuestionMarkersContainer.module.css";
+import { IGameSlice } from "@/store/gameSlice";
 
 const QuestionMarkersContainer = () => {
-  const numbersOfQuestions = [1, 2, 3, 4, 5, 6];
-  const isCurrent = 4;
+  const numberQuestions = useSelector(
+    (state: IGameSlice) => state.gameState.questions
+  );
+
+  console.log(numberQuestions?.questions.length);
+
+  const isCurrent = useSelector(
+    (state: IGameSlice) => state.gameState.currentQuestionNumber
+  );
+
+  // const numbersOfQuestions = [1, 2, 3, 4, 5, 6];
+  // const isCurrent = 4;
 
   return (
     <div className={styles.questionMarkers}>
-      {numbersOfQuestions.map((question) => {
+      {numberQuestions?.questions.map((question, index) => {
         return (
           <QuestionMarker
-            key={question}
-            number={question}
-            isCurrent={isCurrent == question ? "true" : "false"}
+            key={question.text}
+            number={index + 1}
+            isCurrent={Number(isCurrent) == index ? "true" : "false"}
           ></QuestionMarker>
         );
       })}

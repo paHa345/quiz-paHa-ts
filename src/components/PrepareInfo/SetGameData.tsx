@@ -21,7 +21,9 @@ const SetGameData = () => {
 
   useEffect(() => {
     dispatch(appStateActions.setCurrentGameName(null));
-  }, []);
+    dispatch(gameActions.setStartGameStatus(false));
+    dispatch(gameActions.setInGameStatus(false));
+  }, [dispatch]);
 
   return (
     <div className={styles.loginForm}>

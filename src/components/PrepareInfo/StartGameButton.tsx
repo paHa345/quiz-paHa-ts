@@ -15,9 +15,9 @@ const StartGameButton = ({ userName }: IStartGameButtonProps) => {
   const dispatch = useDispatch();
   const clickStartGameButtonHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     dispatch(appStateActions.setName(userName));
-    console.log("reset");
-
     dispatch(gameActions.resetPoints(0));
+    dispatch(gameActions.setInGameStatus(true));
+
     router.push("./currentGame/game");
   };
   return (

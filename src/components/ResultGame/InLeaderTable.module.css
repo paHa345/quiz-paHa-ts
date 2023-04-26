@@ -32,3 +32,8 @@
   color: #444441;
   border-bottom: 1px solid #716561;
 }
+
+.currentResilt {
+  font-weight: bold;
+  font-style: italic;
+}

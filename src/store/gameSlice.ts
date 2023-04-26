@@ -24,6 +24,7 @@ export interface IGameSlice {
     currentQuestion: null | ICurrentQuestion;
     choosedAnswer: number;
     points: number;
+    inGame: boolean;
   };
 }
 
@@ -37,6 +38,7 @@ interface IGameState {
   currentQuestion: null | ICurrentQuestion;
   choosedAnswer: number;
   points: number;
+  inGame: boolean;
 }
 
 interface GameAction {
@@ -74,6 +76,7 @@ export const initGameState: IGameState = {
   currentQuestion: null,
   choosedAnswer: -100,
   points: 0,
+  inGame: false,
 };
 
 export const gameSlice = createSlice({
@@ -103,6 +106,9 @@ export const gameSlice = createSlice({
     },
     resetPoints(state, action: { type: string; payload: number }) {
       state.points = 0;
+    },
+    setInGameStatus(state, action: { type: string; payload: boolean }) {
+      state.inGame = action.payload;
     },
   },
 });

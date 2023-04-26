@@ -1,7 +1,18 @@
 import type { ReactElement } from "react";
+import { ILeadersData } from "./components/LeaderBoards/LeaderBoardSComponent";
 
 export type LayoutProps = ({
   children,
 }: {
   children: ReactElement;
 }) => ReactElement;
+
+export interface ILeaderTableUser {
+  name: string;
+  points: string;
+}
+
+export interface ILeadersTableRequest {
+  message: string;
+  item: ILeadersData;
+}

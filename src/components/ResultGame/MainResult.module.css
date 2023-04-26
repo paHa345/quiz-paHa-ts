@@ -1,0 +1,13 @@
+.mainNotification {
+  font-size: 3.2rem;
+  display: flex;
+  justify-content: center;
+}
+.mainResult {
+  font-size: 3.2rem;
+  display: flex;
+  justify-content: center;
+  letter-spacing: 0.3rem;
+  padding: 4rem;
+  font-weight: bold;
+}

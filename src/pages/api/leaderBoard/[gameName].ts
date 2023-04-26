@@ -37,14 +37,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     client.close();
   }
   if (req.method === "PATCH") {
-    console.log(req.body.leaderBoard);
+    console.log(req.body);
 
     const db = client.db();
     const result = await db
       .collection("leaderBoard")
       .findOneAndUpdate(
         { id: gameName },
-        { $set: { leaders: req.body.leaderBoard } }
+        { $set: { leaders: req.body.leadersData } }
       );
     res.status(200).json({ message: "success", item: result });
     client.close();
