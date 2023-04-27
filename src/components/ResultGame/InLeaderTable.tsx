@@ -29,6 +29,7 @@ const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
   );
 
   const [table, setTable] = useState<any>();
+  const [successAddToDb, setSuccessAddToDb] = useState<boolean>(false);
 
   async function setNewLeaderBoardTable(leadersData: ILeaderTableUser[]) {
     const req = await fetch(`./api/leaderBoard/${currentGameNamer}`, {
@@ -40,6 +41,12 @@ const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
     });
     const data = await req.json();
     console.log(data);
+    if (data.message === "success") {
+      setSuccessAddToDb(true);
+      setTimeout(() => {
+        setSuccessAddToDb(false);
+      }, 2000);
+    }
   }
 
   useEffect(() => {
@@ -78,6 +85,11 @@ const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
         </thead>
         <tbody>{table}</tbody>
       </table>
+      {successAddToDb && (
+        <h1 className={styles.notification}>
+          Таблица лидеров успешно обновлена
+        </h1>
+      )}
     </Fragment>
   );
 };

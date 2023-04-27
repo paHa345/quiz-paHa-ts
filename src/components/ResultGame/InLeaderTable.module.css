@@ -37,3 +37,13 @@
   font-weight: bold;
   font-style: italic;
 }
+
+.notification {
+  font-size: 3.2rem;
+  padding: 2rem;
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
+  background-color: #f9ecec;
+  border-radius: 1rem;
+}

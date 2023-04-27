@@ -6,6 +6,7 @@ export interface IAppStateSlice {
     value: number;
     gamesName: { id: string; _id: string }[] | null;
     currentGamename: string | null;
+    showTimer: boolean;
   };
 }
 
@@ -14,6 +15,7 @@ interface IAppState {
   value: number;
   gamesName: { id: string; _id: string }[] | null;
   currentGamename: string | null;
+  showTimer: boolean;
 }
 
 interface AppAction {
@@ -26,6 +28,7 @@ export const initAppState: IAppState = {
   value: 0,
   gamesName: null,
   currentGamename: null,
+  showTimer: true,
 };
 
 export const appStateSlice = createSlice({
@@ -58,6 +61,12 @@ export const appStateSlice = createSlice({
       if (!action.payload) {
         state.currentGamename = action.payload;
       }
+    },
+    showTimer(state) {
+      state.showTimer = true;
+    },
+    hideTimer(state) {
+      state.showTimer = false;
     },
   },
 });

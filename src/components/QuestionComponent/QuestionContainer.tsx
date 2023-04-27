@@ -7,6 +7,9 @@ import { IGameSlice, gameActions } from "@/store/gameSlice";
 import { useDispatch } from "react-redux";
 import FinishGameButton from "./FinishGameButton";
 import { useRouter } from "next/router";
+import Timer from "../TimerComponent/Timer";
+import TimerSection from "../TimerComponent/TimerSection";
+import { appStateActions } from "@/store/app-stateSlice";
 
 const QuestionContainer = () => {
   const dispatch = useDispatch();
@@ -43,12 +46,21 @@ const QuestionContainer = () => {
       dispatch(gameActions.setCurrentQuestionNumber(currentQuestionNumber + 1));
 
       if (currentQuestion?.answers[choosedAnswer].correct) {
+        console.log(currentQuestion?.answers[choosedAnswer]);
+
+        console.log("correct");
+
         dispatch(gameActions.setPointsAfterQuestion(50));
       }
 
       dispatch(gameActions.setChoosedAnswer(-100));
+      dispatch(gameActions.resetQuestionTime());
+      dispatch(appStateActions.hideTimer());
     } else {
-      alert("Выберете ответ");
+      dispatch(gameActions.setChooseAnswer(true));
+      setTimeout(() => {
+        dispatch(gameActions.setChooseAnswer(false));
+      }, 1000);
     }
   };
 
@@ -60,9 +72,14 @@ const QuestionContainer = () => {
 
       dispatch(gameActions.setChoosedAnswer(-100));
       dispatch(gameActions.setResultGameStatus(true));
+      dispatch(appStateActions.hideTimer());
+      dispatch(gameActions.resetQuestionTime());
       router.push("/result");
     } else {
-      alert("Выберете ответ");
+      dispatch(gameActions.setChooseAnswer(true));
+      setTimeout(() => {
+        dispatch(gameActions.setChooseAnswer(false));
+      }, 1000);
     }
   };
 

@@ -3,7 +3,6 @@ import styles from "./ResultGame.module.css";
 import { useSelector } from "react-redux";
 import { IGameSlice, gameActions } from "@/store/gameSlice";
 import { IAppStateSlice, appStateActions } from "@/store/app-stateSlice";
-import { ILeadersData } from "../LeaderBoards/LeaderBoardSComponent";
 import MainResult from "./MainResult";
 import InLeaderTable from "./InLeaderTable";
 import { ILeadersTableRequest } from "@/types";
@@ -59,22 +58,32 @@ const ResultGame = () => {
         }
       );
 
-      console.log(sorted);
-
       if (resultPoints > sorted[sorted?.length - 1]?.points) {
-        console.log("sheck");
-
+        const leaderObj = {
+          name: userName,
+          points: String(resultPoints),
+        };
+        let index;
         for (let i = 0; i < sorted.length; i++) {
           if (resultPoints > sorted[i].points) {
-            sorted[i].points = String(resultPoints);
-            sorted[i].name = userName;
+            // sorted[i].points = String(resultPoints);
+            // sorted[i].name = userName;
             setNumberInLeaderBoard(i);
+            index = i;
 
             break;
           }
         }
-        console.log(sorted);
-        setAddResultToLeaderBoard(sorted);
+
+        const first = sorted.slice(0, index);
+
+        const secound = sorted.slice(index, sorted.length);
+
+        const newLeaderBoard = [...first, leaderObj, ...secound];
+        newLeaderBoard.splice(newLeaderBoard.length - 1, 1);
+
+
+        setAddResultToLeaderBoard(newLeaderBoard);
         setInLeaders(true);
       } else {
         console.log("NOT");

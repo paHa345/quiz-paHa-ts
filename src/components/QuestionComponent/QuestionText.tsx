@@ -1,5 +1,7 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import styles from "./QuestionText.module.css";
+import { useDispatch } from "react-redux";
+import { appStateActions } from "@/store/app-stateSlice";
 
 interface IQuestionTextProps {
   text: string | undefined;
@@ -12,6 +14,11 @@ const QuestionText = ({
   questionNumber,
   numberOfQuestions,
 }: IQuestionTextProps) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(appStateActions.showTimer());
+  });
   return (
     <Fragment>
       <div className={styles.questionNumber}>

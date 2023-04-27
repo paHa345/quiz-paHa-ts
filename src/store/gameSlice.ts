@@ -25,6 +25,9 @@ export interface IGameSlice {
     choosedAnswer: number;
     points: number;
     inGame: boolean;
+    questionTime: number;
+    timeIsUp: boolean;
+    dontChooseAnswer: boolean;
   };
 }
 
@@ -39,6 +42,9 @@ interface IGameState {
   choosedAnswer: number;
   points: number;
   inGame: boolean;
+  questionTime: number;
+  timeIsUp: boolean;
+  dontChooseAnswer: boolean;
 }
 
 interface GameAction {
@@ -77,6 +83,9 @@ export const initGameState: IGameState = {
   choosedAnswer: -100,
   points: 0,
   inGame: false,
+  questionTime: 10,
+  timeIsUp: false,
+  dontChooseAnswer: false,
 };
 
 export const gameSlice = createSlice({
@@ -93,6 +102,22 @@ export const gameSlice = createSlice({
       state.resultGame = action.payload;
     },
     setQuestions(state, action: ISetQuestionsAction) {
+      if (action.payload) {
+        action.payload.questions.map((question) => {
+          const randomAnswersArr = [];
+          const answersLength = question.answers.length;
+          for (let i = 0; i < answersLength; i++) {
+            const random = Math.random() * 10;
+            if (random > 5) {
+              randomAnswersArr.push(question.answers[i]);
+            } else {
+              randomAnswersArr.unshift(question.answers[i]);
+            }
+          }
+          question.answers = randomAnswersArr;
+        });
+      }
+
       state.questions = action.payload;
     },
     setCurrentQuestionNumber(state, action: ISetCurrentQuestionNumberAction) {
@@ -102,13 +127,25 @@ export const gameSlice = createSlice({
       state.choosedAnswer = action.payload;
     },
     setPointsAfterQuestion(state, action: { type: string; payload: number }) {
-      state.points = state.points + action.payload;
+      state.points = state.points + action.payload + state.questionTime * 2;
     },
     resetPoints(state, action: { type: string; payload: number }) {
       state.points = 0;
     },
     setInGameStatus(state, action: { type: string; payload: boolean }) {
       state.inGame = action.payload;
+    },
+    dicreaseQuestionTime(state) {
+      state.questionTime = state.questionTime - 1;
+    },
+    resetQuestionTime(state) {
+      state.questionTime = 10;
+    },
+    seTTimeIsUpStatus(state, action: { type: string; payload: boolean }) {
+      state.timeIsUp = action.payload;
+    },
+    setChooseAnswer(state, action: { type: string; payload: boolean }) {
+      state.dontChooseAnswer = action.payload;
     },
   },
 });

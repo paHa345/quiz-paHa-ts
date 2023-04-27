@@ -20,6 +20,10 @@ const AnswersContainer = ({ answers }: IAnswersContainerProps) => {
     (state: IGameSlice) => state.gameState.choosedAnswer
   );
 
+  const dontChooseAnswer = useSelector(
+    (state: IGameSlice) => state.gameState.dontChooseAnswer
+  );
+
   const clickAnswerHandler = function (this: number, event: MouseEvent) {
     dispatch(gameActions.setChoosedAnswer(this));
   };
@@ -36,6 +40,11 @@ const AnswersContainer = ({ answers }: IAnswersContainerProps) => {
             name={answer.answer}
           ></Answer>
         ))}
+        {dontChooseAnswer && (
+          <div className={styles.dontChooseContainer}>
+            <div className={styles.dontChoose}>Выберете ответ</div>
+          </div>
+        )}
       </ul>
     </div>
   );
