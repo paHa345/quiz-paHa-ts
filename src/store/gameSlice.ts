@@ -103,6 +103,18 @@ export const gameSlice = createSlice({
     },
     setQuestions(state, action: ISetQuestionsAction) {
       if (action.payload) {
+        const randomQuestionssArr = [];
+        for (let i = 0; i < action.payload.questions.length; i++) {
+          const random = Math.random() * 10;
+          if (random > 5) {
+            randomQuestionssArr.push(action.payload.questions[i]);
+          } else {
+            randomQuestionssArr.unshift(action.payload.questions[i]);
+          }
+        }
+
+        action.payload.questions = randomQuestionssArr;
+
         action.payload.questions.map((question) => {
           const randomAnswersArr = [];
           const answersLength = question.answers.length;
