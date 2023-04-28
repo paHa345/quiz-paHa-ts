@@ -16,3 +16,15 @@ export interface ILeadersTableRequest {
   message: string;
   item: ILeadersData;
 }
+
+export interface IUserAnswer {
+  question: string | undefined;
+  correctAnswer:
+    | {
+        answer: string;
+        correct: boolean;
+      }[]
+    | undefined;
+
+  userAnswer: string | undefined;
+}

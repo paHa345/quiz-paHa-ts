@@ -1,3 +1,4 @@
+import { ILeaderTableUser, IUserAnswer } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface IGameQuestions {
@@ -28,6 +29,7 @@ export interface IGameSlice {
     questionTime: number;
     timeIsUp: boolean;
     dontChooseAnswer: boolean;
+    userAnswers: null | IUserAnswer[];
   };
 }
 
@@ -45,6 +47,7 @@ interface IGameState {
   questionTime: number;
   timeIsUp: boolean;
   dontChooseAnswer: boolean;
+  userAnswers: null | IUserAnswer[];
 }
 
 interface GameAction {
@@ -86,6 +89,7 @@ export const initGameState: IGameState = {
   questionTime: 10,
   timeIsUp: false,
   dontChooseAnswer: false,
+  userAnswers: null,
 };
 
 export const gameSlice = createSlice({
@@ -158,6 +162,24 @@ export const gameSlice = createSlice({
     },
     setChooseAnswer(state, action: { type: string; payload: boolean }) {
       state.dontChooseAnswer = action.payload;
+    },
+    addUserAnswer(state, action: { type: string; payload: string }) {
+      const correctAnswer = state.currentQuestion?.answers.filter(
+        (answer) => answer.correct
+      );
+      const userAnswer: IUserAnswer = {
+        question: state.currentQuestion?.text,
+        correctAnswer: correctAnswer,
+        userAnswer: action.payload,
+      };
+      if (state.userAnswers === null) {
+        state.userAnswers = [userAnswer];
+      } else {
+        state.userAnswers.push(userAnswer);
+      }
+    },
+    resetUserAnswer(state) {
+      state.userAnswers = null;
     },
   },
 });

@@ -38,6 +38,15 @@ const QuestionContainer = () => {
 
   const clickNextQuestionHandler = () => {
     if (questions && choosedAnswer > -1) {
+      console.log(currentQuestion?.answers[choosedAnswer].answer);
+
+      if (currentQuestion?.answers[choosedAnswer].answer) {
+        dispatch(
+          gameActions.addUserAnswer(
+            currentQuestion?.answers[choosedAnswer].answer
+          )
+        );
+      }
       dispatch(
         gameActions.setCurrentQuestion(
           questions?.questions[currentQuestionNumber + 1]
@@ -66,6 +75,14 @@ const QuestionContainer = () => {
 
   const clickFinishTestHandler = () => {
     if (questions && choosedAnswer > -1) {
+      if (currentQuestion?.answers[choosedAnswer].answer) {
+        dispatch(
+          gameActions.addUserAnswer(
+            currentQuestion?.answers[choosedAnswer].answer
+          )
+        );
+      }
+
       if (currentQuestion?.answers[choosedAnswer].correct) {
         dispatch(gameActions.setPointsAfterQuestion(50));
       }

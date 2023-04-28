@@ -8,6 +8,7 @@ import InLeaderTable from "./InLeaderTable";
 import { ILeadersTableRequest } from "@/types";
 import { useDispatch } from "react-redux";
 import BackToMainButton from "./BackToMainButton";
+import AnswersTable from "./AnswersTable";
 
 const ResultGame = () => {
   const dispatch = useDispatch();
@@ -82,7 +83,6 @@ const ResultGame = () => {
         const newLeaderBoard = [...first, leaderObj, ...secound];
         newLeaderBoard.splice(newLeaderBoard.length - 1, 1);
 
-
         setAddResultToLeaderBoard(newLeaderBoard);
         setInLeaders(true);
       } else {
@@ -108,6 +108,9 @@ const ResultGame = () => {
               leadersData={addResultToLeaderBoard}
             ></InLeaderTable>
           )}
+
+          {getLeadersData && <AnswersTable></AnswersTable>}
+
           {getLeadersData && <BackToMainButton></BackToMainButton>}
         </Fragment>
       </div>

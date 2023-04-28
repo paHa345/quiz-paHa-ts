@@ -23,6 +23,7 @@ const SetGameData = () => {
     dispatch(appStateActions.setCurrentGameName(null));
     dispatch(gameActions.setStartGameStatus(false));
     dispatch(gameActions.setInGameStatus(false));
+    dispatch(gameActions.resetUserAnswer());
   }, [dispatch]);
 
   return (
