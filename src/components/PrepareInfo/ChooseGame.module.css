@@ -36,3 +36,14 @@
   display: flex;
   justify-content: center;
 }
+
+.errorNotification {
+  font-size: 3.2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.errorText {
+  display: flex;
+  justify-content: center;
+}

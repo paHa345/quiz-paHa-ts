@@ -13,3 +13,8 @@
 .loadSpinner {
   font-size: 8rem;
 }
+
+.errorDBNotification {
+  font-size: 3.2rem;
+  padding: 15rem 0rem;
+}

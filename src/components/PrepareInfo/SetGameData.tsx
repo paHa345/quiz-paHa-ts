@@ -17,7 +17,6 @@ const SetGameData = () => {
   const currentGameName = useSelector(
     (state: IAppStateSlice) => state.appState.currentGamename
   );
-  console.log(currentGameName);
 
   useEffect(() => {
     dispatch(appStateActions.setCurrentGameName(null));

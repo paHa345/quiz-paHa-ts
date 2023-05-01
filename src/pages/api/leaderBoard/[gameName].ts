@@ -27,28 +27,54 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
   if (req.method === "GET") {
-    const db = client.db();
+    try {
+      const db = client.db();
 
-    const result = await db
-      .collection("leaderBoard")
-      .findOne<ILeaderBoard[]>({ id: gameName });
+      const result = await db
+        .collection("leaderBoard")
+        .findOne<ILeaderBoard[]>({ id: gameName });
 
-    res.status(200).json({ message: "success", item: result });
-    client.close();
+      if (!result) {
+        throw new Error("Не удалось найти запись в базе данных");
+      }
+
+      res.status(200).json({ message: "success", item: result });
+      return;
+    } catch (error: any) {
+      res.status(400).json({ message: "error", item: error.message });
+      return;
+    }
   }
   if (req.method === "PATCH") {
     console.log(req.body);
+    if (req.body.serverSecret !== "paHa345") {
+      res
+        .status(404)
+        .json({ message: "error", item: "Неавторизованный запрос" });
+      return;
+    }
 
-    const db = client.db();
-    const result = await db
-      .collection("leaderBoard")
-      .findOneAndUpdate(
-        { id: gameName },
-        { $set: { leaders: req.body.leadersData } }
-      );
-    res.status(200).json({ message: "success", item: result });
-    client.close();
+    try {
+      const db = client.db();
+
+      const result = await db
+        .collection("leaderBoard")
+        .findOneAndUpdate(
+          { id: gameName },
+          { $set: { leaders: req.body.leadersData } }
+        );
+
+      if (!result) {
+        throw new Error("Не удалось обновить список лидеров");
+      }
+      res.status(200).json({ message: "success", item: result });
+      return;
+    } catch (error: any) {
+      res.status(400).json({ message: "error", item: error.message });
+      return;
+    }
   }
+  client.close();
 }
 
 export default handler;

@@ -1,18 +1,25 @@
-import { ILeadersData } from "@/components/LeaderBoards/LeaderBoardSComponent";
+import { IDBLeaderBoard } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
-interface ICurrentLeaders {
-  id: string;
-  _id: string;
-  leaders: {
-    name: string;
-    points: string;
-  }[];
-}
+// interface ICurrentLeaders {
+//   id: string;
+//   _id: string;
+//   leaders: {
+//     name: string;
+//     points: string;
+//   }[];
+// }
 
 interface ILeaderBoardState {
-  leadersData: ILeadersData[] | null;
-  currentLeadersData: ILeadersData[] | null | undefined;
+  leadersData: IDBLeaderBoard[] | null;
+  currentLeadersData: IDBLeaderBoard[] | null | undefined;
+}
+
+export interface IleaderSlice {
+  leaderState: {
+    leadersData: IDBLeaderBoard[];
+    currentLeadersData: IDBLeaderBoard[];
+  };
 }
 
 // interface LeaderBoardAction {

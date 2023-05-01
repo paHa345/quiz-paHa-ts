@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux";
 import styles from "./ChooseGame.module.css";
-import { IleaderData } from "../LeaderBoards/LeaderBoardSComponent";
 import { useDispatch } from "react-redux";
-import { leaderBoardStateActions } from "@/store/leaderBoardSlice";
 import { Fragment, useEffect } from "react";
 import { IAppStateSlice, appStateActions } from "@/store/app-stateSlice";
+import { IDBGameName, IDBGameQuestions } from "@/types";
 
 const ChooseGame = () => {
   //   const gamesLeaderBoard = useSelector(
@@ -15,26 +14,35 @@ const ChooseGame = () => {
     (state: IAppStateSlice) => state.appState.gamesName
   );
 
-  console.log(gamesNameArr);
-
   const dispatch = useDispatch();
 
   const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(appStateActions.setCurrentGameName(e.target.value));
   };
 
-  const gamesNameOption = gamesNameArr?.map((el) => {
-    return (
-      <option key={el.id} value={el.id}>
-        {el.id}
-      </option>
-    );
-  });
+  let gamesNameOption;
+
+  if (typeof gamesNameArr === "object") {
+    gamesNameOption = gamesNameArr?.map((el) => {
+      console.log(el);
+
+      return (
+        <option key={el.id} value={el.id}>
+          {el.id}
+        </option>
+      );
+    });
+  }
 
   useEffect(() => {
     async function fetchGamesName() {
       const req = await fetch("./api/getGamesName");
-      const data = await req.json();
+      const data: IDBGameName = await req.json();
+      // console.log(data.item[0].id);
+      if (!req.ok) {
+        dispatch(appStateActions.setGamesName(data.message));
+        return;
+      }
 
       dispatch(appStateActions.setGamesName(data.item));
     }
@@ -42,8 +50,14 @@ const ChooseGame = () => {
   }, [dispatch]);
   return (
     <Fragment>
-      {!gamesNameArr && <div className={styles.loading}>Loading... </div>}
-      {gamesNameArr && (
+      {!gamesNameArr && <div className={styles.loading}>Загрузка... </div>}
+      {typeof gamesNameArr === "string" && (
+        <div className={styles.errorNotification}>
+          <p className={styles.errorText}>{gamesNameArr}</p>
+        </div>
+      )}
+
+      {gamesNameArr && typeof gamesNameArr !== "string" && (
         <form className={styles.leadersForm}>
           <label className={styles.chooseGameLabel} htmlFor="gameSelect">
             Выберите игру

@@ -29,14 +29,16 @@ const ResultGame = () => {
   const userName = useSelector((state: IAppStateSlice) => state.appState.name);
 
   useEffect(() => {
-    console.log(currentGameName);
     dispatch(gameActions.setInGameStatus(false));
     dispatch(gameActions.setStartGameStatus(false));
 
     async function getLeaderBoard() {
-      const req = await fetch(`./api/leaderBoard/${currentGameName}`);
+      const req = await fetch(`./api/leaderBoard/${currentGameName}pp`);
       const leadersData: ILeadersTableRequest = await req.json();
-      console.log(leadersData);
+      if (leadersData.message === "error") {
+        setGetLeadersData(leadersData.item);
+        return;
+      }
 
       setGetLeadersData(leadersData.item.leaders);
     }
@@ -47,9 +49,7 @@ const ResultGame = () => {
   }, []);
 
   useEffect(() => {
-    if (getLeadersData) {
-      console.log("get");
-
+    if (getLeadersData && typeof getLeadersData !== "string") {
       const sorted = getLeadersData.sort(
         (
           a: { name: string; points: string },
@@ -97,10 +97,15 @@ const ResultGame = () => {
         <Fragment>
           {!getLeadersData && (
             <div style={{ padding: "5rem", fontSize: "3.2rem" }}>
-              Loading ...
+              Загрузка ...
             </div>
           )}
-          {getLeadersData && <MainResult points={resultPoints}></MainResult>}
+          {typeof getLeadersData === "string" && (
+            <div className={styles.errorNotification}>{getLeadersData}</div>
+          )}
+          {getLeadersData && typeof getLeadersData !== "string" && (
+            <MainResult points={resultPoints}></MainResult>
+          )}
 
           {inLeaders && (
             <InLeaderTable

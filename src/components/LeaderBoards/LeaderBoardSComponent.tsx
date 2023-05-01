@@ -4,50 +4,22 @@ import LeaderBoardSelector from "./LeaderBoardSelector";
 import LeaderBoardTable from "./LeaderBoardTable";
 import { useDispatch } from "react-redux";
 import {
+  IleaderSlice,
   leaderBoardStateActions,
   leaderBoardStateSlice,
 } from "@/store/leaderBoardSlice";
 import { useSelector } from "react-redux";
 import { appStateActions } from "@/store/app-stateSlice";
 import { gameActions } from "@/store/gameSlice";
-
-export interface ILeadersData {
-  id: string;
-  _id: string;
-  leaders: {
-    name: string;
-    points: string;
-  }[];
-}
-
-export interface IleaderData {
-  leaderState: {
-    leadersData: {
-      _id: string;
-      id: string;
-      leaders: {
-        name: string;
-        points: string;
-      }[];
-    }[];
-    currentLeadersData: {
-      _id: string;
-      id: string;
-      leaders: {
-        name: string;
-        points: string;
-      }[];
-    }[];
-  };
-}
+import { IDBLeaderBoard } from "@/types";
 
 const LederBoadsContainer = () => {
   const leaderData = useSelector(
-    (state: IleaderData) => state.leaderState.leadersData
+    (state: IleaderSlice) => state.leaderState.leadersData
   );
 
   const currentLeaders = useSelector(
-    (state: IleaderData) => state.leaderState.currentLeadersData
+    (state: IleaderSlice) => state.leaderState.currentLeadersData
   );
 
   const dispatch = useDispatch();
@@ -62,13 +34,22 @@ const LederBoadsContainer = () => {
     dispatch(leaderBoardStateActions.setCurrentLeadersData(null));
 
     async function fetchLeadersData() {
-      console.log("sis");
-
       const req = await fetch("./api/leaderBoard/allGameLeaders");
       const LeadersData = await req.json();
 
-      const leadersData: ILeadersData[] = LeadersData.items;
+      if (!req.ok) {
+        dispatch(leaderBoardStateActions.setLeadersData(LeadersData.message));
+        return;
+      }
 
+      if (LeadersData.message === "error") {
+        dispatch(
+          leaderBoardStateActions.setLeadersData("Не удалось получить данные")
+        );
+        return;
+      }
+
+      const leadersData: IDBLeaderBoard[] = LeadersData.items;
       dispatch(leaderBoardStateActions.setLeadersData(leadersData));
     }
 
@@ -78,7 +59,10 @@ const LederBoadsContainer = () => {
     <section className={styles.leaderBoardContainer}>
       <div className={styles.container}>
         {!leaderData && <div className={styles.loadSpinner}>Loading...</div>}
-        {leaderData && (
+        {typeof leaderData === "string" && (
+          <div className={styles.errorDBNotification}> {leaderData} </div>
+        )}
+        {leaderData && typeof leaderData !== "string" && (
           <Fragment>
             <LeaderBoardSelector></LeaderBoardSelector>
             {currentLeaders && <LeaderBoardTable></LeaderBoardTable>}

@@ -13,3 +13,9 @@
 .loadSpinner {
   font-size: 8rem;
 }
+
+.errorNotification {
+  font-size: 3.2rem;
+  display: flex;
+  justify-content: center;
+}

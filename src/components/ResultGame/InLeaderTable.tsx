@@ -1,13 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
 import styles from "./InLeaderTable.module.css";
 import { useSelector } from "react-redux";
-import {
-  ILeadersData,
-  IleaderData,
-} from "../LeaderBoards/LeaderBoardSComponent";
+
 import { ILeaderTableUser } from "@/types";
-import { IGameSlice } from "@/store/gameSlice";
 import { IAppStateSlice } from "@/store/app-stateSlice";
+import { IleaderSlice } from "@/store/leaderBoardSlice";
 
 interface lLeadersData {
   numberInLeader: number | undefined;
@@ -21,23 +18,23 @@ interface lLeadersData {
 
 const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
   const currentLeaderData = useSelector(
-    (state: IleaderData) => state.leaderState.currentLeadersData
+    (state: IleaderSlice) => state.leaderState.currentLeadersData
   );
 
-  const currentGameNamer = useSelector(
+  const currentGameName = useSelector(
     (state: IAppStateSlice) => state.appState.currentGamename
   );
 
-  const [table, setTable] = useState<any>();
+  const [table, setTable] = useState<JSX.Element[]>();
   const [successAddToDb, setSuccessAddToDb] = useState<boolean>(false);
 
   async function setNewLeaderBoardTable(leadersData: ILeaderTableUser[]) {
-    const req = await fetch(`./api/leaderBoard/${currentGameNamer}`, {
+    const req = await fetch(`./api/leaderBoard/${currentGameName}`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify({ leadersData }),
+      body: JSON.stringify({ leadersData, serverSecret: process.env.SECRET }),
     });
     const data = await req.json();
     console.log(data);

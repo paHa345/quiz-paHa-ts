@@ -8,8 +8,6 @@ const QuestionMarkersContainer = () => {
     (state: IGameSlice) => state.gameState.questions
   );
 
-  console.log(numberQuestions?.questions.length);
-
   const isCurrent = useSelector(
     (state: IGameSlice) => state.gameState.currentQuestionNumber
   );
@@ -28,24 +26,6 @@ const QuestionMarkersContainer = () => {
           ></QuestionMarker>
         );
       })}
-      {/* <div className={` ${styles.questionMarker} ${styles.currentMarker} `}>
-        <p>1</p>
-      </div>
-      <div className={styles.questionMarker}>
-        <p>2</p>
-      </div>
-      <div className={styles.questionMarker}>
-        <p>3</p>
-      </div>
-      <div className={styles.questionMarker}>
-        <p>4</p>
-      </div>
-      <div className={styles.questionMarker}>
-        <p>5</p>
-      </div>
-      <div className={styles.questionMarker}>
-        <p>6</p>
-      </div> */}
     </div>
   );
 };

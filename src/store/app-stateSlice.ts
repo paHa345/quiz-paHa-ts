@@ -4,7 +4,7 @@ export interface IAppStateSlice {
   appState: {
     name: string;
     value: number;
-    gamesName: { id: string; _id: string }[] | null;
+    gamesName: { id: string; _id: string }[] | null | string | undefined;
     currentGamename: string | null;
     showTimer: boolean;
   };
@@ -13,7 +13,7 @@ export interface IAppStateSlice {
 interface IAppState {
   name: string;
   value: number;
-  gamesName: { id: string; _id: string }[] | null;
+  gamesName: { id: string; _id: string }[] | null | string | undefined;
   currentGamename: string | null;
   showTimer: boolean;
 }
@@ -41,7 +41,7 @@ export const appStateSlice = createSlice({
     setGamesName(
       state,
       action: {
-        payload: { id: string; _id: string }[];
+        payload: { id: string; _id: string }[] | string | undefined;
         type: string;
       }
     ) {

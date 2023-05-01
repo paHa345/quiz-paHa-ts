@@ -7,7 +7,6 @@ const AnswersTable = () => {
   const userAnswersData = useSelector(
     (state: IGameSlice) => state.gameState.userAnswers
   );
-  console.log(userAnswersData);
 
   const userAnswers = userAnswersData?.map((answer) => {
     if (!answer.correctAnswer) {

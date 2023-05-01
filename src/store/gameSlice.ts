@@ -1,18 +1,21 @@
-import { ILeaderTableUser, IUserAnswer } from "@/types";
-import { createSlice } from "@reduxjs/toolkit";
+import {
+  IDBGameName,
+  IDBGameQuestions,
+  IDBQuestion,
+  ILeaderTableUser,
+  IUserAnswer,
+} from "@/types";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { type } from "os";
 
-export interface IGameQuestions {
-  id: string;
-  _id: string;
-  questions: ICurrentQuestion[];
-}
-export interface ICurrentQuestion {
-  text: string;
-  answers: {
-    answer: string;
-    correct: boolean;
-  }[];
-}
+export const fetchGameNames = createAsyncThunk(
+  "gameState/fetchGameNames",
+  async function () {
+    const req = await fetch("./api/getGamesName");
+    const data: IDBGameName = await req.json();
+    return data;
+  }
+);
 
 export interface IGameSlice {
   gameState: {
@@ -20,9 +23,9 @@ export interface IGameSlice {
     value: number;
     startGame: boolean;
     resultGame: boolean;
-    questions: null | IGameQuestions;
+    questions: null | IDBGameQuestions;
     currentQuestionNumber: number;
-    currentQuestion: null | ICurrentQuestion;
+    currentQuestion: null | IDBQuestion;
     choosedAnswer: number;
     points: number;
     inGame: boolean;
@@ -30,6 +33,7 @@ export interface IGameSlice {
     timeIsUp: boolean;
     dontChooseAnswer: boolean;
     userAnswers: null | IUserAnswer[];
+    fetchGameNamesStatus: string;
   };
 }
 
@@ -38,9 +42,9 @@ interface IGameState {
   value: number;
   startGame: boolean;
   resultGame: boolean;
-  questions: null | IGameQuestions;
+  questions: null | IDBGameQuestions;
   currentQuestionNumber: number;
-  currentQuestion: null | ICurrentQuestion;
+  currentQuestion: null | IDBQuestion;
   choosedAnswer: number;
   points: number;
   inGame: boolean;
@@ -48,11 +52,7 @@ interface IGameState {
   timeIsUp: boolean;
   dontChooseAnswer: boolean;
   userAnswers: null | IUserAnswer[];
-}
-
-interface GameAction {
-  type: string;
-  payload?: any;
+  fetchGameNamesStatus: string;
 }
 
 interface ISetStartGameStatusAction {
@@ -62,7 +62,7 @@ interface ISetStartGameStatusAction {
 
 interface ISetQuestionsAction {
   type: string;
-  payload: IGameQuestions;
+  payload: IDBGameQuestions;
 }
 
 interface ISetCurrentQuestionNumberAction {
@@ -72,7 +72,7 @@ interface ISetCurrentQuestionNumberAction {
 
 interface ISetCurrentQuestionAction {
   type: string;
-  payload: ICurrentQuestion;
+  payload: IDBQuestion;
 }
 
 export const initGameState: IGameState = {
@@ -90,6 +90,7 @@ export const initGameState: IGameState = {
   timeIsUp: false,
   dontChooseAnswer: false,
   userAnswers: null,
+  fetchGameNamesStatus: "",
 };
 
 export const gameSlice = createSlice({
@@ -181,6 +182,11 @@ export const gameSlice = createSlice({
     resetUserAnswer(state) {
       state.userAnswers = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchGameNames.fulfilled, (state, action) => {
+      state.fetchGameNamesStatus = "loading";
+    });
   },
 });
 

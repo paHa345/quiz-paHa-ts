@@ -27,16 +27,26 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
   if (req.method === "GET") {
-    const db = client.db();
+    try {
+      const db = client.db();
 
-    const result = await db
-      .collection("leaderBoard")
-      .find<ILeaderBoard[]>({})
-      .toArray();
+      const result = await db
+        .collection("leaderBoard")
+        .find<ILeaderBoard[]>({})
+        .toArray();
 
-    res.status(200).json({ message: "success", items: result });
-    client.close();
+      if (!result) {
+        throw new Error("Error");
+      }
+
+      res.status(200).json({ message: "success", items: result });
+      return;
+    } catch (error) {
+      res.status(400).json({ message: "error", items: error });
+      return;
+    }
   }
+  client.close();
 }
 
 export default handler;

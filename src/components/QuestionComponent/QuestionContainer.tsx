@@ -38,8 +38,6 @@ const QuestionContainer = () => {
 
   const clickNextQuestionHandler = () => {
     if (questions && choosedAnswer > -1) {
-      console.log(currentQuestion?.answers[choosedAnswer].answer);
-
       if (currentQuestion?.answers[choosedAnswer].answer) {
         dispatch(
           gameActions.addUserAnswer(
@@ -55,10 +53,6 @@ const QuestionContainer = () => {
       dispatch(gameActions.setCurrentQuestionNumber(currentQuestionNumber + 1));
 
       if (currentQuestion?.answers[choosedAnswer].correct) {
-        console.log(currentQuestion?.answers[choosedAnswer]);
-
-        console.log("correct");
-
         dispatch(gameActions.setPointsAfterQuestion(50));
       }
 

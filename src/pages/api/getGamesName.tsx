@@ -24,25 +24,35 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     db = client.db();
   } catch (error) {
     res.status(500).json({
-      message: "Не удалось подключиться к базе данных",
+      message: "Ошибка: Не удалось подключиться к базе данных",
     });
     return;
   }
   if (req.method === "GET") {
-    const db = client.db();
+    try {
+      const db = client.db();
 
-    const result = await db.collection("testQuestions").find().toArray();
+      // const result = await db.collection("testQuestions").find().toArray();
 
-    const projection = { id: 1 };
-    const cursor = await db
-      .collection("testQuestions")
-      .find()
-      .project(projection)
-      .toArray();
+      const projection = { id: 1 };
+      const cursor = await db
+        .collection("testQuestions")
+        .find()
+        .project(projection)
+        .toArray();
 
-    res.status(200).json({ message: "success", item: cursor });
-    client.close();
+      if (!cursor) {
+        throw new Error("Не удалось получить данные");
+      }
+
+      res.status(200).json({ message: "success", item: cursor });
+      return;
+    } catch (error: any) {
+      res.status(400).json({ message: `Ошибка: ${error.message}` });
+      return;
+    }
   }
+  client.close();
 }
 
 export default handler;
