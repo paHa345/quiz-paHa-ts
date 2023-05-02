@@ -5,7 +5,8 @@ import {
   appStateActions,
   appStateSlice,
 } from "@/store/app-stateSlice";
-import { IGameQuestions, IGameSlice, gameActions } from "@/store/gameSlice";
+import { IGameSlice, gameActions } from "@/store/gameSlice";
+import { IDBGameQuestions } from "@/types";
 import { useRouter } from "next/router";
 import { Fragment, useEffect, useReducer } from "react";
 import { useSelector } from "react-redux";
@@ -53,7 +54,7 @@ function GamePage() {
   useEffect(() => {
     async function fetchQuestions() {
       const request = await fetch(`../api/games/${currentGameName}`);
-      const data: { status: string; item: IGameQuestions } =
+      const data: { status: string; item: IDBGameQuestions } =
         await request.json();
       dispatch(gameActions.setQuestions(data.item));
     }
