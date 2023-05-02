@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import styles from "./LeaderBoardTable.module.css";
 import { useSelector } from "react-redux";
-import { IleaderData } from "./LeaderBoardSComponent";
+import { IleaderSlice } from "@/store/leaderBoardSlice";
 
 const LeaderBoardTable = () => {
   const currentLeaderData = useSelector(
-    (state: IleaderData) => state.leaderState.currentLeadersData
+    (state: IleaderSlice) => state.leaderState.currentLeadersData
   );
 
   const table = [...currentLeaderData[0].leaders]

@@ -1,13 +1,15 @@
 import { useSelector } from "react-redux";
 import styles from "./LeaderBoardSelector.module.css";
-import { IleaderData } from "./LeaderBoardSComponent";
 import { useDispatch } from "react-redux";
-import { leaderBoardStateActions } from "@/store/leaderBoardSlice";
+import {
+  IleaderSlice,
+  leaderBoardStateActions,
+} from "@/store/leaderBoardSlice";
 import React from "react";
 
 const LeaderBoardSelector = () => {
   const gamesLeaderBoard = useSelector(
-    (state: IleaderData) => state.leaderState.leadersData
+    (state: IleaderSlice) => state.leaderState.leadersData
   );
 
   const currentLeaders = useSelector(
