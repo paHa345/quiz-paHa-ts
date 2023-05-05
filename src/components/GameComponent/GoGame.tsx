@@ -2,24 +2,23 @@ import { Fragment, useEffect } from "react";
 import styles from "./GoGame.module.css";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { IGameSlice, gameActions } from "@/store/gameSlice";
+import {
+  IGameSlice,
+  fetchQuestionsAndSetCurrent,
+  gameActions,
+} from "@/store/gameSlice";
 import { IAppStateSlice } from "@/store/app-stateSlice";
 import { useRouter } from "next/router";
+import { AppDispatch } from "@/store";
+import { FetchStatus } from "@/types";
+import BackToMainButton from "../ResultGame/BackToMainButton";
 
 const GoGame = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
   const currentQuestion = useSelector(
     (state: IGameSlice) => state.gameState.currentQuestion
-  );
-
-  const currentQuestionNumber = useSelector(
-    (state: IGameSlice) => state.gameState.currentQuestionNumber
-  );
-
-  const questions = useSelector(
-    (state: IGameSlice) => state.gameState.questions
   );
 
   const name = useSelector((state: IAppStateSlice) => state.appState.name);
@@ -37,6 +36,12 @@ const GoGame = () => {
     (state: IGameSlice) => state.gameState.startGame
   );
 
+  const fetchQuestionsStatus = useSelector(
+    (state: IGameSlice) => state.gameState.fetchQuestionsStatus
+  );
+
+  const fetchError = useSelector((state: IGameSlice) => state.gameState.error);
+
   console.log(gameStatus);
 
   const clickGoGameButtonHandler = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -51,21 +56,29 @@ const GoGame = () => {
   });
 
   useEffect(() => {
-    dispatch(gameActions.setCurrentQuestionNumber(0));
-
-    if (questions) {
-      dispatch(
-        gameActions.setCurrentQuestion(
-          questions?.questions[currentQuestionNumber]
-        )
-      );
+    if (currentGameName) {
+      dispatch(fetchQuestionsAndSetCurrent(currentGameName));
     }
-  }, [questions]);
+  }, []);
+
+  // useEffect(() => {
+  //   dispatch(gameActions.setCurrentQuestionNumber(0));
+
+  //   if (questions) {
+  //     dispatch(
+  //       gameActions.setCurrentQuestion(
+  //         questions?.questions[currentQuestionNumber]
+  //       )
+  //     );
+  //   }
+  // }, [questions]);
 
   return (
     <Fragment>
-      {!currentQuestion && <div className={styles.loading}>Загрузка...</div>}
-      {currentQuestion && (
+      {fetchQuestionsStatus === FetchStatus.Loading && (
+        <div className={styles.loading}>Загрузка...</div>
+      )}
+      {fetchQuestionsStatus === FetchStatus.Resolve && (
         <div className={styles.goGameContainer}>
           <div className={styles.mainTitle}>
             Если готовы начать игру, жмите на кнопку...
@@ -79,6 +92,19 @@ const GoGame = () => {
             </div>
           </div>
         </div>
+      )}
+      {fetchQuestionsStatus === FetchStatus.Error && (
+        <Fragment>
+          <div className={styles.loading}>
+            {fetchError}
+            <br></br>
+            Вернитесь на главную страницу или обновите страницу и повторите
+            попытку позднее
+          </div>
+          <div className={styles.backButtonContainer}>
+            <BackToMainButton></BackToMainButton>
+          </div>
+        </Fragment>
       )}
     </Fragment>
   );

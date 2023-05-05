@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   /* width: 70%; */
+  margin-bottom: 3.2rem;
 }
 
 .cartOrderButton a:link,
@@ -22,6 +23,5 @@
 .cartOrderButton a:active {
   /* background-color: #ecf2f9; */
   background-color: #c8d9eb;
-
   color: #02101f;
 }

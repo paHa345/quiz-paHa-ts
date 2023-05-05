@@ -47,3 +47,22 @@
   background-color: #f9ecec;
   border-radius: 1rem;
 }
+.resolveNotification {
+  font-size: 3.2rem;
+  padding: 2rem;
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
+  background-color: #59f079;
+  border-radius: 1rem;
+}
+
+.errorNotification {
+  font-size: 3.2rem;
+  padding: 2rem;
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
+  background-color: #ee6666;
+  border-radius: 1rem;
+}

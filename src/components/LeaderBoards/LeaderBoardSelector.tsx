@@ -32,7 +32,9 @@ const LeaderBoardSelector = () => {
 
   return (
     <form className={styles.leadersForm}>
-      <label htmlFor="city-select">Выберите название</label>
+      <label className={styles.selectTitle} htmlFor="city-select">
+        Выберите название
+      </label>
       <select
         onChange={selectHandler}
         className={styles.leadersSelect}

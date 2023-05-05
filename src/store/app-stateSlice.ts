@@ -1,4 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { FetchStatus, IDBGameName } from "@/types";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+export const fetchGameNames = createAsyncThunk(
+  "appState/fetchGameNames",
+  async function (_, { rejectWithValue }) {
+    try {
+      const req = await fetch("./api/getGamesName");
+      const data: IDBGameName = await req.json();
+      if (!req.ok) {
+        throw new Error(`Ошибка сервера: ${data.message}`);
+      }
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export interface IAppStateSlice {
   appState: {
@@ -7,6 +24,8 @@ export interface IAppStateSlice {
     gamesName: { id: string; _id: string }[] | null | string | undefined;
     currentGamename: string | null;
     showTimer: boolean;
+    fetchGameNamesStatus: FetchStatus;
+    error: string;
   };
 }
 
@@ -16,6 +35,8 @@ interface IAppState {
   gamesName: { id: string; _id: string }[] | null | string | undefined;
   currentGamename: string | null;
   showTimer: boolean;
+  fetchGameNamesStatus: FetchStatus;
+  error: string;
 }
 
 interface AppAction {
@@ -29,6 +50,8 @@ export const initAppState: IAppState = {
   gamesName: null,
   currentGamename: null,
   showTimer: true,
+  fetchGameNamesStatus: FetchStatus.Loading,
+  error: "",
 };
 
 export const appStateSlice = createSlice({
@@ -68,6 +91,22 @@ export const appStateSlice = createSlice({
     hideTimer(state) {
       state.showTimer = false;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchGameNames.pending, (state) => {
+      state.fetchGameNamesStatus = FetchStatus.Loading;
+      state.error = "";
+    });
+    builder.addCase(fetchGameNames.fulfilled, (state, action) => {
+      state.fetchGameNamesStatus = FetchStatus.Resolve;
+      state.gamesName = action.payload.item;
+    });
+    builder.addCase(fetchGameNames.rejected, (state, action) => {
+      state.fetchGameNamesStatus = FetchStatus.Error;
+      if (typeof action.payload === "string") {
+        state.error = action.payload;
+      }
+    });
   },
 });
 

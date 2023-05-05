@@ -47,4 +47,12 @@
   display: flex;
   justify-content: center;
   padding: 25rem 2rem;
+  /* flex-direction: column; */
+}
+
+.backButtonContainer {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5rem;
 }

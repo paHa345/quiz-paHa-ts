@@ -2,21 +2,20 @@ import { Fragment, useEffect, useState } from "react";
 import styles from "./InLeaderTable.module.css";
 import { useSelector } from "react-redux";
 
-import { ILeaderTableUser } from "@/types";
+import { FetchStatus, ILeaderTableUser } from "@/types";
 import { IAppStateSlice } from "@/store/app-stateSlice";
-import { IleaderSlice } from "@/store/leaderBoardSlice";
+import { IleaderSlice, patchNewLeadersData } from "@/store/leaderBoardSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store";
 
 interface lLeadersData {
-  numberInLeader: number | undefined;
-  leadersData:
-    | {
-        name: string;
-        points: string;
-      }[]
-    | false;
+  numberInLeader: number;
+  leadersData: ILeaderTableUser[];
 }
 
 const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const currentLeaderData = useSelector(
     (state: IleaderSlice) => state.leaderState.currentLeadersData
   );
@@ -25,28 +24,43 @@ const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
     (state: IAppStateSlice) => state.appState.currentGamename
   );
 
+  const patchStatus = useSelector(
+    (state: IleaderSlice) => state.leaderState.patchLeaderStatus
+  );
+
+  const patchError = useSelector(
+    (state: IleaderSlice) => state.leaderState.patchError
+  );
+
   const [table, setTable] = useState<JSX.Element[]>();
+
   const [successAddToDb, setSuccessAddToDb] = useState<boolean>(false);
 
-  async function setNewLeaderBoardTable(leadersData: ILeaderTableUser[]) {
-    const req = await fetch(`./api/leaderBoard/${currentGameName}`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify({ leadersData, serverSecret: process.env.SECRET }),
-    });
-    const data = await req.json();
-    console.log(data);
-    if (data.message === "success") {
-      setSuccessAddToDb(true);
-      setTimeout(() => {
-        setSuccessAddToDb(false);
-      }, 2000);
-    }
-  }
+  // async function setNewLeaderBoardTable(leadersData: ILeaderTableUser[]) {
+  //   const req = await fetch(`./api/leaderBoard/${currentGameName}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-type": "application/json; charset=UTF-8",
+  //     },
+  //     body: JSON.stringify({ leadersData, serverSecret: process.env.SECRET }),
+  //   });
+  //   const data = await req.json();
+  //   console.log(data);
+  //   if (data.message === "success") {
+  //     setSuccessAddToDb(true);
+  //     setTimeout(() => {
+  //       setSuccessAddToDb(false);
+  //     }, 2000);
+  //   }
+  // }
 
   useEffect(() => {
+    if (currentGameName) {
+      dispatch(
+        patchNewLeadersData({ currentGameName, leadersData, numberInLeader })
+      );
+    }
+
     if (leadersData) {
       const tableEl = [...leadersData]
         .sort((a, b) => {
@@ -63,9 +77,11 @@ const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
           );
         });
       setTable(tableEl);
-      setNewLeaderBoardTable(leadersData);
+      // setNewLeaderBoardTable(leadersData);
     }
   }, []);
+
+  useEffect(() => {});
 
   return (
     <Fragment>
@@ -82,9 +98,19 @@ const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
         </thead>
         <tbody>{table}</tbody>
       </table>
-      {successAddToDb && (
+      {patchStatus === FetchStatus.Loading && (
         <h1 className={styles.notification}>
+          Обновление таблицы лидеров на сервере
+        </h1>
+      )}
+      {patchStatus === FetchStatus.Resolve && (
+        <h1 className={styles.resolveNotification}>
           Таблица лидеров успешно обновлена
+        </h1>
+      )}
+      {patchStatus === FetchStatus.Error && (
+        <h1 className={styles.errorNotification}>
+          Не удалось обновить таблицу. Ошибка сервера
         </h1>
       )}
     </Fragment>

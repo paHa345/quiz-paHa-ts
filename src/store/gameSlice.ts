@@ -1,19 +1,38 @@
 import {
+  FetchStatus,
   IDBGameName,
   IDBGameQuestions,
+  IDBGameRequst,
   IDBQuestion,
-  ILeaderTableUser,
   IUserAnswer,
 } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { type } from "os";
+import { appStateActions } from "./app-stateSlice";
 
-export const fetchGameNames = createAsyncThunk(
-  "gameState/fetchGameNames",
-  async function () {
-    const req = await fetch("./api/getGamesName");
-    const data: IDBGameName = await req.json();
-    return data;
+// async function fetchQuestions() {
+//   const request = await fetch(`../api/games/${currentGameName}`);
+//   const data: { status: string; item: IDBGameQuestions } =
+//     await request.json();
+//   dispatch(gameActions.setQuestions(data.item));
+// }
+
+export const fetchQuestionsAndSetCurrent = createAsyncThunk(
+  "gameState/fetchQuestionsAndSetCurrent",
+  async function (currentGameName: string, { rejectWithValue, dispatch }) {
+    try {
+      const req = await fetch(`../api/games/${currentGameName}`);
+      const data: { message: string; item: IDBGameQuestions } =
+        await req.json();
+      if (!req.ok) {
+        throw new Error(`Ошибка сервера: ${data.message}`);
+      }
+      console.log(data.item.questions);
+      dispatch(gameActions.setQuestions(data.item));
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
@@ -33,7 +52,8 @@ export interface IGameSlice {
     timeIsUp: boolean;
     dontChooseAnswer: boolean;
     userAnswers: null | IUserAnswer[];
-    fetchGameNamesStatus: string;
+    fetchQuestionsStatus: FetchStatus;
+    error: string;
   };
 }
 
@@ -52,7 +72,8 @@ interface IGameState {
   timeIsUp: boolean;
   dontChooseAnswer: boolean;
   userAnswers: null | IUserAnswer[];
-  fetchGameNamesStatus: string;
+  fetchQuestionsStatus: FetchStatus;
+  error: string;
 }
 
 interface ISetStartGameStatusAction {
@@ -90,7 +111,8 @@ export const initGameState: IGameState = {
   timeIsUp: false,
   dontChooseAnswer: false,
   userAnswers: null,
-  fetchGameNamesStatus: "",
+  fetchQuestionsStatus: FetchStatus.Loading,
+  error: "",
 };
 
 export const gameSlice = createSlice({
@@ -184,8 +206,24 @@ export const gameSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchGameNames.fulfilled, (state, action) => {
-      state.fetchGameNamesStatus = "loading";
+    builder.addCase(fetchQuestionsAndSetCurrent.pending, (state) => {
+      state.fetchQuestionsStatus = FetchStatus.Loading;
+      state.error = "";
+    });
+    builder.addCase(fetchQuestionsAndSetCurrent.fulfilled, (state, action) => {
+      console.log("ok");
+      state.currentQuestionNumber = 0;
+      if (state.questions !== null) {
+        state.currentQuestion = state.questions.questions[0];
+      }
+
+      state.fetchQuestionsStatus = FetchStatus.Resolve;
+    });
+    builder.addCase(fetchQuestionsAndSetCurrent.rejected, (state, action) => {
+      state.fetchQuestionsStatus = FetchStatus.Error;
+      if (typeof action.payload === "string") {
+        state.error = action.payload;
+      }
     });
   },
 });

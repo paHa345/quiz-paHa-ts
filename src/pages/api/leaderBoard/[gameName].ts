@@ -29,10 +29,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     try {
       const db = client.db();
+      console.log(gameName);
 
       const result = await db
         .collection("leaderBoard")
         .findOne<ILeaderBoard[]>({ id: gameName });
+      console.log(result);
 
       if (!result) {
         throw new Error("Не удалось найти запись в базе данных");

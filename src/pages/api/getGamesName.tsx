@@ -24,7 +24,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     db = client.db();
   } catch (error) {
     res.status(500).json({
-      message: "Ошибка: Не удалось подключиться к базе данных",
+      message: "Не удалось подключиться к базе данных",
     });
     return;
   }
@@ -48,7 +48,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(200).json({ message: "success", item: cursor });
       return;
     } catch (error: any) {
-      res.status(400).json({ message: `Ошибка: ${error.message}` });
+      res.status(400).json({ message: `${error.message}` });
       return;
     }
   }

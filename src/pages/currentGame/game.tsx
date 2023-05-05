@@ -1,11 +1,16 @@
 import Game from "@/components/GameComponent/Game";
 import GoGame from "@/components/GameComponent/GoGame";
+import { AppDispatch } from "@/store";
 import {
   IAppStateSlice,
   appStateActions,
   appStateSlice,
 } from "@/store/app-stateSlice";
-import { IGameSlice, gameActions } from "@/store/gameSlice";
+import {
+  IGameSlice,
+  fetchQuestionsAndSetCurrent,
+  gameActions,
+} from "@/store/gameSlice";
 import { IDBGameQuestions } from "@/types";
 import { useRouter } from "next/router";
 import { Fragment, useEffect, useReducer } from "react";
@@ -26,7 +31,7 @@ import { useDispatch } from "react-redux";
 // }
 
 function GamePage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   interface AppState {
     appState: {
@@ -50,16 +55,6 @@ function GamePage() {
       router.push("/");
     }
   }, [currentGameName, name, router]);
-
-  useEffect(() => {
-    async function fetchQuestions() {
-      const request = await fetch(`../api/games/${currentGameName}`);
-      const data: { status: string; item: IDBGameQuestions } =
-        await request.json();
-      dispatch(gameActions.setQuestions(data.item));
-    }
-    fetchQuestions();
-  }, []);
 
   return (
     <Fragment>

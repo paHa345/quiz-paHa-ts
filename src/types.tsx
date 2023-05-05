@@ -2,6 +2,12 @@ import type { ReactElement } from "react";
 import { IleaderSlice } from "./store/leaderBoardSlice";
 import { IGameSlice } from "./store/gameSlice";
 
+export enum FetchStatus {
+  Loading = "loading",
+  Resolve = "resolve",
+  Error = "error",
+}
+
 // типизация layout обёртки
 export type LayoutProps = ({
   children,

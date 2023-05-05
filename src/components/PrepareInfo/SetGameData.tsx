@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { IAppStateSlice, appStateActions } from "@/store/app-stateSlice";
 import { useDispatch } from "react-redux";
 import { gameActions } from "@/store/gameSlice";
+import { leaderBoardStateActions } from "@/store/leaderBoardSlice";
 
 const SetGameData = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const SetGameData = () => {
     dispatch(gameActions.setStartGameStatus(false));
     dispatch(gameActions.setInGameStatus(false));
     dispatch(gameActions.resetUserAnswer());
+    dispatch(leaderBoardStateActions.resetResultStatus());
   }, [dispatch]);
 
   return (
