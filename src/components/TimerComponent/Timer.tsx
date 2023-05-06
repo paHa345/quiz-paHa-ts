@@ -13,7 +13,7 @@ const Timer = () => {
 
   return (
     <p>
-      {time2} <span>секунд</span>
+      {time2} <span></span>
     </p>
   );
 };

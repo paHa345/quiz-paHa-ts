@@ -107,7 +107,7 @@ export const initGameState: IGameState = {
   choosedAnswer: -100,
   points: 0,
   inGame: false,
-  questionTime: 10,
+  questionTime: 20,
   timeIsUp: false,
   dontChooseAnswer: false,
   userAnswers: null,
@@ -166,7 +166,7 @@ export const gameSlice = createSlice({
       state.choosedAnswer = action.payload;
     },
     setPointsAfterQuestion(state, action: { type: string; payload: number }) {
-      state.points = state.points + action.payload + state.questionTime * 2;
+      state.points = state.points + action.payload + state.questionTime;
     },
     resetPoints(state, action: { type: string; payload: number }) {
       state.points = 0;
@@ -178,7 +178,7 @@ export const gameSlice = createSlice({
       state.questionTime = state.questionTime - 1;
     },
     resetQuestionTime(state) {
-      state.questionTime = 10;
+      state.questionTime = 20;
     },
     seTTimeIsUpStatus(state, action: { type: string; payload: boolean }) {
       state.timeIsUp = action.payload;

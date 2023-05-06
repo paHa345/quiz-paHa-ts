@@ -17,9 +17,11 @@ const GoGame = () => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
-  const currentQuestion = useSelector(
-    (state: IGameSlice) => state.gameState.currentQuestion
+  const questions = useSelector(
+    (state: IGameSlice) => state.gameState.questions
   );
+
+  console.log(questions?.questions);
 
   const name = useSelector((state: IAppStateSlice) => state.appState.name);
   console.log(name);
@@ -81,6 +83,12 @@ const GoGame = () => {
       {fetchQuestionsStatus === FetchStatus.Resolve && (
         <div className={styles.goGameContainer}>
           <div className={styles.mainTitle}>
+            Тест состоит из {questions?.questions.length} вопросов. За
+            правильный ответ на вопрос начисляется 50 баллов. Кроме этого за
+            правильный ответ на вопрос добавляются дополнительные баллы,
+            количество которых уменьшается со временем.
+            <br></br>
+            <br></br>
             Если готовы начать игру, жмите на кнопку...
           </div>
           <div className={styles.buttonContainer}>

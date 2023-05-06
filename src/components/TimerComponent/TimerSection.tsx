@@ -15,7 +15,7 @@ const TimerSection = () => {
     }, 1000);
     const timeout = setTimeout(() => {
       clearInterval(timer);
-    }, 10000);
+    }, 20000);
     return () => {
       clearTimeout(timeout);
       clearTimeout(timer);
@@ -25,7 +25,7 @@ const TimerSection = () => {
   return (
     <div className={styles.timerSection}>
       <div className={styles.timerContainer}>
-        <div className={styles.timerTitle}>Осталось времени</div>
+        <div className={styles.timerTitle}>Дополнительные баллы</div>
         <div className={styles.timer}>
           <Timer></Timer>
         </div>
