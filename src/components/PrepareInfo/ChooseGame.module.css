@@ -1,11 +1,16 @@
+.leadersFormContainer {
+  min-height: 18rem;
+}
+
 .leadersForm {
   font-size: 3.2rem;
   padding-bottom: 6rem;
+  box-shadow: 0.4rem 0.4rem 0.5rem 0.5rem rgba(93, 88, 113, 0.202);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 .leadersSelect {
   border: 2px solid black;
-}
-.leadersOption {
 }
 
 .chooseGameLabel {

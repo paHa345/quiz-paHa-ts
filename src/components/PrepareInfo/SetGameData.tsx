@@ -28,23 +28,31 @@ const SetGameData = () => {
   }, [dispatch]);
 
   return (
-    <div className={styles.loginForm}>
-      <div className={styles.loginFormElement}>
-        <label htmlFor="name">Введите имя</label>
-        <input
-          onChange={setNameHandler}
-          value={name}
-          id="name"
-          required
-          placeholder="Введите имя"
-        />
-      </div>
-      <ChooseGame></ChooseGame>
+    <>
+      <div className={styles.loginForm}>
+        <h2 className={styles.bestProductH2}>Space Quiz</h2>
+        <div className={styles.loginFormElement}>
+          <label htmlFor="name">Введите имя</label>
+          <input
+            onChange={setNameHandler}
+            value={name}
+            id="name"
+            required
+            placeholder="Введите имя"
+          />
+        </div>
+        <ChooseGame></ChooseGame>
 
-      {name.trim().length > 0 && currentGameName && (
-        <StartGameButton userName={name}></StartGameButton>
-      )}
-    </div>
+        {/* {!name && !currentGameName && (
+          <div ></div>
+        )} */}
+        <div className={styles.startGameContainer}>
+          {name.trim().length > 0 && currentGameName && (
+            <StartGameButton userName={name}></StartGameButton>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
 

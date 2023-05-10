@@ -5,13 +5,15 @@ import LeaderBoardTable from "./LeaderBoardTable";
 import { useDispatch } from "react-redux";
 import {
   IleaderSlice,
+  fetchAllGameLeaderBoard,
   leaderBoardStateActions,
   leaderBoardStateSlice,
 } from "@/store/leaderBoardSlice";
 import { useSelector } from "react-redux";
 import { appStateActions } from "@/store/app-stateSlice";
 import { gameActions } from "@/store/gameSlice";
-import { IDBLeaderBoard } from "@/types";
+import { FetchStatus, IDBLeaderBoard } from "@/types";
+import { AppDispatch } from "@/store";
 
 const LederBoadsContainer = () => {
   const leaderData = useSelector(
@@ -22,7 +24,13 @@ const LederBoadsContainer = () => {
     (state: IleaderSlice) => state.leaderState.currentLeadersData
   );
 
-  const dispatch = useDispatch();
+  const fetchStatus = useSelector(
+    (state: IleaderSlice) => state.leaderState.fetchQuestionsStatus
+  );
+
+  const error = useSelector((state: IleaderSlice) => state.leaderState.error);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(appStateActions.setCurrentGameName(null));
@@ -32,44 +40,49 @@ const LederBoadsContainer = () => {
   useEffect(() => {
     dispatch(leaderBoardStateActions.setLeadersData(null));
     dispatch(leaderBoardStateActions.setCurrentLeadersData(null));
+    dispatch(fetchAllGameLeaderBoard());
 
-    async function fetchLeadersData() {
-      const req = await fetch("./api/leaderBoard/allGameLeaders");
-      const LeadersData = await req.json();
+    // async function fetchLeadersData() {
+    //   const req = await fetch("./api/leaderBoard/allGameLeaders");
+    //   const LeadersData = await req.json();
 
-      if (!req.ok) {
-        dispatch(leaderBoardStateActions.setLeadersData(LeadersData.message));
-        return;
-      }
+    //   if (!req.ok) {
+    //     dispatch(leaderBoardStateActions.setLeadersData(LeadersData.message));
+    //     return;
+    //   }
 
-      if (LeadersData.message === "error") {
-        dispatch(
-          leaderBoardStateActions.setLeadersData("Не удалось получить данные")
-        );
-        return;
-      }
+    //   if (LeadersData.message === "error") {
+    //     dispatch(
+    //       leaderBoardStateActions.setLeadersData("Не удалось получить данные")
+    //     );
+    //     return;
+    //   }
 
-      const leadersData: IDBLeaderBoard[] = LeadersData.items;
-      dispatch(leaderBoardStateActions.setLeadersData(leadersData));
-    }
+    //   const leadersData: IDBLeaderBoard[] = LeadersData.item;
+    //   dispatch(leaderBoardStateActions.setLeadersData(leadersData));
+    // }
 
-    fetchLeadersData();
+    // fetchLeadersData();
   }, [dispatch]);
   return (
-    <section className={styles.leaderBoardContainer}>
-      <div className={styles.container}>
-        {!leaderData && <div className={styles.loadSpinner}>Loading...</div>}
-        {typeof leaderData === "string" && (
-          <div className={styles.errorDBNotification}> {leaderData} </div>
-        )}
-        {leaderData && typeof leaderData !== "string" && (
-          <Fragment>
-            <LeaderBoardSelector></LeaderBoardSelector>
-            {currentLeaders && <LeaderBoardTable></LeaderBoardTable>}
-          </Fragment>
-        )}
-      </div>
-    </section>
+    <div className={styles.mainLeaderBoard}>
+      <section className={styles.leaderBoardContainer}>
+        <div className={styles.container}>
+          {fetchStatus === FetchStatus.Loading && (
+            <div className={styles.dataBNotification}>Загрузка...</div>
+          )}
+          {fetchStatus === FetchStatus.Error && (
+            <div className={styles.dataBNotification}> {error} </div>
+          )}
+          {fetchStatus === FetchStatus.Resolve && (
+            <Fragment>
+              <LeaderBoardSelector></LeaderBoardSelector>
+              {currentLeaders && <LeaderBoardTable></LeaderBoardTable>}
+            </Fragment>
+          )}
+        </div>
+      </section>
+    </div>
   );
 };
 

@@ -36,13 +36,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         .toArray();
 
       if (!result) {
-        throw new Error("Error");
+        throw new Error("Не удалось получить данные");
       }
 
-      res.status(200).json({ message: "success", items: result });
+      res.status(200).json({ message: "success", item: result });
       return;
-    } catch (error) {
-      res.status(400).json({ message: "error", items: error });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message, item: error.message });
       return;
     }
   }

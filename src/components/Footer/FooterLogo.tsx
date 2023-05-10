@@ -11,7 +11,7 @@ const FooterLogo = () => {
         height={120}
         width={120}
         // objectFit="cover"
-        src="/logo.png"
+        src="/mainLogo2.png"
         alt="logo"
       />
     </Link>

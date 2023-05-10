@@ -22,7 +22,7 @@ const LeaderBoardSelector = () => {
     dispatch(leaderBoardStateActions.setCurrentLeadersData(e.target.value));
   };
 
-  const leaderBoardOption = gamesLeaderBoard.map((el) => {
+  const leaderBoardOption = gamesLeaderBoard?.map((el) => {
     return (
       <option key={el.id} value={el.id}>
         {el.id}

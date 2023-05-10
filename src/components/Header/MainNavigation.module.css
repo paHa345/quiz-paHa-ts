@@ -4,6 +4,10 @@
   list-style: none;
   gap: 2.4rem;
 }
+.headerNavLink {
+  box-shadow: 0.4rem 0.4rem 0.5rem 0.5rem rgb(93 88 113 / 20%);
+  border-radius: 1rem;
+}
 
 .headerNavLink:link,
 .headerNavLink:visited {
@@ -17,6 +21,6 @@
 .headerNavLink:active {
   color: #09253f;
   /* text-decoration: underline; */
-  background-color: #f7b8b8;
+  background-color: #c8d9eb;
   border-radius: 1rem;
 }

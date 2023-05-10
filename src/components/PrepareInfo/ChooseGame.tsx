@@ -50,34 +50,36 @@ const ChooseGame = () => {
   }, [dispatch]);
   return (
     <Fragment>
-      {fetchGameStatus === FetchStatus.Loading && (
-        <div className={styles.loading}>Загрузка... </div>
-      )}
-      {fetchGameStatus === FetchStatus.Error && (
-        <div className={styles.errorNotification}>
-          <p className={styles.errorText}>{fetchError}</p>
-        </div>
-      )}
+      <div className={styles.leadersFormContainer}>
+        {fetchGameStatus === FetchStatus.Loading && (
+          <div className={styles.loading}>Загрузка... </div>
+        )}
+        {fetchGameStatus === FetchStatus.Error && (
+          <div className={styles.errorNotification}>
+            <p className={styles.errorText}>{fetchError}</p>
+          </div>
+        )}
 
-      {fetchGameStatus === FetchStatus.Resolve && (
-        <form className={styles.leadersForm}>
-          <label className={styles.chooseGameLabel} htmlFor="gameSelect">
-            Выберите игру
-          </label>
+        {fetchGameStatus === FetchStatus.Resolve && (
+          <form className={styles.leadersForm}>
+            <label className={styles.chooseGameLabel} htmlFor="gameSelect">
+              Выберите игру
+            </label>
 
-          <select
-            onChange={selectHandler}
-            className={styles.leadersSelect}
-            name="leaders"
-            id="leaders-select"
-          >
-            <option className={styles.leadersOption} value="">
-              - Выберите игру -
-            </option>
-            {gamesNameOption}
-          </select>
-        </form>
-      )}
+            <select
+              onChange={selectHandler}
+              className={styles.leadersSelect}
+              name="leaders"
+              id="leaders-select"
+            >
+              <option className={styles.leadersOption} value="">
+                - Выберите игру -
+              </option>
+              {gamesNameOption}
+            </select>
+          </form>
+        )}
+      </div>
     </Fragment>
   );
 };

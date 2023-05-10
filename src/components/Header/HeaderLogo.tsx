@@ -8,11 +8,10 @@ const HeaderLogo = () => {
     <Link href="/" className={styles.headerLogo}>
       <Image
         className={styles.headerImg}
-        priority
-        height={120}
-        width={120}
+        height={100}
+        width={100}
         // objectFit="cover"
-        src="/logo.png"
+        src="/mainLogo2.png"
         alt="logo"
       ></Image>
     </Link>

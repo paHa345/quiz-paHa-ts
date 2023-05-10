@@ -45,6 +45,12 @@ export type IDBGameName = {
   item?: Omit<IDBGameQuestions, "questions">[] | string;
 };
 
+//список всех таблиц лидеров, одной таблицы лидеров, ошибка от сервера
+export interface IDBAllLeadersRequest {
+  message: string;
+  item?: IDBLeaderBoard[];
+}
+
 //из БД leaderBoard
 
 export interface ILeaderTableUser {

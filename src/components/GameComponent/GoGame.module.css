@@ -1,5 +1,42 @@
+.goGameSection {
+  position: relative;
+}
+
+.goGameSection::before {
+  position: absolute;
+  background-image: url("../../../public/background.jpg");
+  background-size: cover;
+  opacity: 0.8;
+  z-index: 1;
+  content: " ";
+  display: block;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(1px);
+  filter: brightness(150%);
+}
+.goGameMain {
+  position: relative;
+  z-index: 1;
+  padding: 22rem 0 6rem 0;
+}
+
 .goGameContainer {
-  padding: 24rem 3.2rem;
+  font-family: "Metropolis1920", sans-serif;
+
+  margin: 0 auto;
+  width: 80%;
+  min-height: 47rem;
+
+  background-color: #ecf2f9;
+  opacity: 0.9;
+  border-radius: 1rem;
+  position: relative;
+  z-index: 1;
+  transition: opacity 1s ease 0.5s;
+  box-shadow: 2px 2px 1px 1px rgba(93, 88, 113, 0.202);
 }
 
 .mainTitle {
@@ -17,7 +54,9 @@
 .cartOrderButton {
   display: flex;
   justify-content: center;
-  /* width: 70%; */
+  box-shadow: 0.4rem 0.4rem 0.5rem 0.5rem rgba(93, 88, 113, 0.202);
+  border-radius: 1.1rem;
+  margin-bottom: 3rem;
 }
 
 .cartOrderButton a:link,
@@ -29,14 +68,12 @@
   color: #555;
   background-color: #ecf2f9;
 
-  /* background-color: #c8d9eb; */
   border-radius: 11px;
   padding: 1.6rem 2.4rem;
 }
 
 .cartOrderButton a:hover,
 .cartOrderButton a:active {
-  /* background-color: #ecf2f9; */
   background-color: #c8d9eb;
 
   color: #02101f;
@@ -44,10 +81,16 @@
 
 .loading {
   font-size: 3.2rem;
+
   display: flex;
   justify-content: center;
-  padding: 25rem 2rem;
-  /* flex-direction: column; */
+}
+
+.loadingText {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin: 18rem auto;
 }
 
 .backButtonContainer {

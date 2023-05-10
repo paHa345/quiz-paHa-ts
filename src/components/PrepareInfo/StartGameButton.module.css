@@ -1,6 +1,8 @@
 .cartOrderButton {
   display: flex;
   justify-content: center;
+  box-shadow: 0.4rem 0.4rem 0.5rem 0.5rem rgba(93, 88, 113, 0.202);
+  border-radius: 1.1rem;
 }
 
 .cartOrderButton a:link,
@@ -12,14 +14,12 @@
   color: #555;
   background-color: #ecf2f9;
 
-  /* background-color: #c8d9eb; */
-  border-radius: 11px;
+  border-radius: 1.1rem;
   padding: 1.6rem 2.4rem;
 }
 
 .cartOrderButton a:hover,
 .cartOrderButton a:active {
-  /* background-color: #ecf2f9; */
   background-color: #c8d9eb;
 
   color: #02101f;

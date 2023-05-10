@@ -77,43 +77,53 @@ const GoGame = () => {
 
   return (
     <Fragment>
-      {fetchQuestionsStatus === FetchStatus.Loading && (
-        <div className={styles.loading}>Загрузка...</div>
-      )}
-      {fetchQuestionsStatus === FetchStatus.Resolve && (
-        <div className={styles.goGameContainer}>
-          <div className={styles.mainTitle}>
-            Тест состоит из {questions?.questions.length} вопросов. За
-            правильный ответ на вопрос начисляется 50 баллов. Кроме этого за
-            правильный ответ на вопрос добавляются дополнительные баллы,
-            количество которых уменьшается со временем.
-            <br></br>
-            <br></br>
-            Если готовы начать игру, жмите на кнопку...
-          </div>
-          <div className={styles.buttonContainer}>
-            <div
-              onClick={clickGoGameButtonHandler}
-              className={styles.cartOrderButton}
-            >
-              <a href="#">Начать игру</a>
-            </div>
+      <section className={styles.goGameSection}>
+        <div className={styles.goGameMain}>
+          <div className={styles.goGameContainer}>
+            {fetchQuestionsStatus === FetchStatus.Loading && (
+              <div className={styles.loading}>
+                <div className={styles.loadingText}>Загрузка...</div>
+              </div>
+            )}
+            {fetchQuestionsStatus === FetchStatus.Resolve && (
+              <>
+                <div className={styles.mainTitle}>
+                  Тест состоит из {questions?.questions.length} вопросов. За
+                  правильный ответ на вопрос начисляется 50 баллов. Кроме этого
+                  за правильный ответ на вопрос добавляются дополнительные
+                  баллы, количество которых уменьшается со временем.
+                  <br></br>
+                  <br></br>
+                  Если готовы начать игру, жмите на кнопку...
+                </div>
+                <div className={styles.buttonContainer}>
+                  <div
+                    onClick={clickGoGameButtonHandler}
+                    className={styles.cartOrderButton}
+                  >
+                    <a href="#">Начать игру</a>
+                  </div>
+                </div>
+              </>
+            )}
+            {fetchQuestionsStatus === FetchStatus.Error && (
+              <Fragment>
+                <div className={styles.loading}>
+                  <div className={styles.loadingText}>
+                    {fetchError}
+                    <br></br>
+                    Вернитесь на главную страницу или обновите страницу и
+                    повторите попытку позднее
+                  </div>
+                </div>
+                <div className={styles.backButtonContainer}>
+                  <BackToMainButton></BackToMainButton>
+                </div>
+              </Fragment>
+            )}
           </div>
         </div>
-      )}
-      {fetchQuestionsStatus === FetchStatus.Error && (
-        <Fragment>
-          <div className={styles.loading}>
-            {fetchError}
-            <br></br>
-            Вернитесь на главную страницу или обновите страницу и повторите
-            попытку позднее
-          </div>
-          <div className={styles.backButtonContainer}>
-            <BackToMainButton></BackToMainButton>
-          </div>
-        </Fragment>
-      )}
+      </section>
     </Fragment>
   );
 };

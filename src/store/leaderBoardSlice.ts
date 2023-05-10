@@ -1,5 +1,6 @@
 import {
   FetchStatus,
+  IDBAllLeadersRequest,
   IDBLeaderBoard,
   ILeaderTableUser,
   ILeadersTableRequest,
@@ -14,6 +15,24 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 //     points: string;
 //   }[];
 // }
+
+export const fetchAllGameLeaderBoard = createAsyncThunk(
+  "leaderBoardState/fetchAllGameLeaderBoard",
+  async function (_, { rejectWithValue, dispatch }) {
+    try {
+      const req = await fetch("./api/leaderBoard/allGameLeaders");
+      const leadersData: IDBAllLeadersRequest = await req.json();
+
+      if (!req.ok) {
+        throw new Error(`Ошибка сервера: ${leadersData.message}`);
+      }
+
+      return leadersData.item;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const fetchLeaderBoardAndSetLeaders = createAsyncThunk(
   "leaderBoardState/fetchLeaderBoardAndSetLeaders",
@@ -73,7 +92,7 @@ export const patchNewLeadersData = createAsyncThunk(
 );
 
 interface ILeaderBoardState {
-  leadersData: IDBLeaderBoard[] | null;
+  leadersData: IDBLeaderBoard[] | null | undefined;
   currentLeadersData: IDBLeaderBoard[] | null | undefined;
   fetchQuestionsStatus: FetchStatus;
   error: string;
@@ -86,7 +105,7 @@ interface ILeaderBoardState {
 
 export interface IleaderSlice {
   leaderState: {
-    leadersData: IDBLeaderBoard[];
+    leadersData: IDBLeaderBoard[] | null | undefined;
     currentLeadersData: IDBLeaderBoard[];
     fetchQuestionsStatus: FetchStatus;
     error: string;
@@ -212,9 +231,27 @@ export const leaderBoardStateSlice = createSlice({
       state.patchLeaderStatus = FetchStatus.Resolve;
     });
     builder.addCase(patchNewLeadersData.rejected, (state, action) => {
-      state.patchLeaderStatus = FetchStatus.Error;
+      state.fetchQuestionsStatus = FetchStatus.Error;
       if (typeof action.payload === "string") {
         state.patchError = action.payload;
+      }
+    });
+    builder.addCase(fetchAllGameLeaderBoard.pending, (state) => {
+      state.fetchQuestionsStatus = FetchStatus.Loading;
+      state.error = "";
+    });
+    builder.addCase(fetchAllGameLeaderBoard.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.leadersData = action.payload;
+
+      state.fetchQuestionsStatus = FetchStatus.Resolve;
+    });
+    builder.addCase(fetchAllGameLeaderBoard.rejected, (state, action) => {
+      state.fetchQuestionsStatus = FetchStatus.Error;
+      if (typeof action.payload === "string") {
+        console.log(action.payload);
+
+        state.error = action.payload;
       }
     });
   },
