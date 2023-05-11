@@ -6,14 +6,16 @@ Image;
 const HeaderLogo = () => {
   return (
     <Link href="/" className={styles.headerLogo}>
-      <Image
-        className={styles.headerImg}
-        height={100}
-        width={100}
-        // objectFit="cover"
-        src="/mainLogo2.png"
-        alt="logo"
-      ></Image>
+      <div className={styles.logoContainer}>
+        <Image
+          className={styles.headerImg}
+          height={100}
+          width={100}
+          layout="responsive"
+          src="/mainLogo2.png"
+          alt="logo"
+        ></Image>
+      </div>
     </Link>
   );
 };

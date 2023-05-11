@@ -17,6 +17,10 @@
   border-radius: 1rem;
   margin-bottom: 1rem;
 }
+
+.bestClass {
+  scale: 1.05;
+}
 .leaderBoardElementIcon {
   display: flex;
   align-items: center;

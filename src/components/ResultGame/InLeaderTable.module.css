@@ -5,6 +5,46 @@
   justify-content: center;
 }
 
+.leaderBoardTableContainer {
+  display: flex;
+  flex-direction: column;
+  font-size: 3.2rem;
+  padding: 2rem;
+}
+.leaderBoardElement {
+  display: grid;
+  grid-template-columns: 100px auto 10%;
+  background-color: rgb(59, 112, 158);
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bestClass {
+  scale: 1.05;
+}
+.leaderBoardElementIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.leaderBoardElementMain {
+  padding-left: 3rem;
+}
+
+.leaderBoardElementName {
+  text-decoration: underline;
+}
+.leaderBoardElementPoint {
+}
+.leaderBoardElementPlace {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 4rem;
+  padding-right: 3rem;
+  padding: auto 0;
+}
+
 .table {
   width: 100%;
   margin-bottom: 2rem;

@@ -15,6 +15,9 @@ const Game = () => {
   const timeIsUpNotification = useSelector(
     (state: IGameSlice) => state.gameState.timeIsUp
   );
+  const currentPoints = useSelector(
+    (state: IGameSlice) => state.gameState.points
+  );
 
   return (
     <section className={styles.questions}>
@@ -25,7 +28,11 @@ const Game = () => {
             {showTimer && <TimerSection></TimerSection>}
             {timeIsUpNotification && <TimeIsUpContainer></TimeIsUpContainer>}
 
-            <MarkerContainer></MarkerContainer>
+            {/* <MarkerContainer></MarkerContainer> */}
+            <div className={styles.currentPointsContainer}>
+              <p>Заработано баллов</p>
+              {currentPoints}
+            </div>
           </div>
         </div>
       </div>

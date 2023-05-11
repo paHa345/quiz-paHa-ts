@@ -7,6 +7,7 @@ import { IAppStateSlice } from "@/store/app-stateSlice";
 import { IleaderSlice, patchNewLeadersData } from "@/store/leaderBoardSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
+import Image from "next/image";
 
 interface lLeadersData {
   numberInLeader: number;
@@ -69,11 +70,51 @@ const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
         .map((el, index) => {
           const currentUserResult =
             index === numberInLeader ? `${styles.currentResilt}` : ``;
+          let icon: string = "";
+          let bestClass: string = ``;
+
+          switch (index) {
+            case 0:
+              icon = "sun";
+              break;
+            case 1:
+              icon = "moon";
+              break;
+            case 2:
+              icon = "jupiter";
+              break;
+            default:
+              break;
+          }
+          if (index > 2) {
+            icon = "galaxy";
+          }
+
+          bestClass = index < 3 ? `${"bestClass"}` : "";
+          console.log(bestClass);
           return (
-            <tr className={currentUserResult} key={`${el.name}-${index}`}>
-              <td>{el.name}</td>
-              <td>{el.points}</td>
-            </tr>
+            <div
+              key={`${el.name}-${index}`}
+              className={`${currentUserResult} ${styles.leaderBoardElement} ${
+                index < 3 ? `${styles.bestClass}` : ""
+              }`}
+            >
+              <div className={styles.leaderBoardElementIcon}>
+                <Image
+                  height={50}
+                  width={50}
+                  src={`/${icon}.png`}
+                  alt="placeLogo"
+                ></Image>
+              </div>
+              <div className={styles.leaderBoardElementMain}>
+                <div className={styles.leaderBoardElementName}>{el.name}</div>
+                <div className={styles.leaderBoardElementPoint}>
+                  Очков: {el.points}
+                </div>
+              </div>
+              <div className={styles.leaderBoardElementPlace}>{index + 1}</div>
+            </div>
           );
         });
       setTable(tableEl);
@@ -89,15 +130,8 @@ const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
         И заняли почётной место в таблице лидеров
       </h1>
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Имя</th>
-            <th>Количество баллов</th>
-          </tr>
-        </thead>
-        <tbody>{table}</tbody>
-      </table>
+      <div className={styles.leaderBoardTableContainer}>{table}</div>
+
       {patchStatus === FetchStatus.Loading && (
         <h1 className={styles.notification}>
           Обновление таблицы лидеров на сервере

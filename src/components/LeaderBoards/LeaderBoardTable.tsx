@@ -15,6 +15,7 @@ const LeaderBoardTable = () => {
     })
     .map((el, index) => {
       let icon: string = "";
+      let bestClass: string = ``;
 
       switch (index) {
         case 0:
@@ -33,8 +34,16 @@ const LeaderBoardTable = () => {
         icon = "galaxy";
       }
 
+      bestClass = index < 3 ? `${"bestClass"}` : "";
+      console.log(bestClass);
+
       return (
-        <div key={`${el.name}-${index}`} className={styles.leaderBoardElement}>
+        <div
+          key={`${el.name}-${index}`}
+          className={`${styles.leaderBoardElement} ${
+            index < 3 ? `${styles.bestClass}` : ""
+          }`}
+        >
           <div className={styles.leaderBoardElementIcon}>
             <Image
               height={50}

@@ -56,9 +56,7 @@ const ResultGame = () => {
       <div className={styles.container}>
         <Fragment>
           {fetchStatus === FetchStatus.Loading && (
-            <div style={{ padding: "5rem", fontSize: "3.2rem" }}>
-              Загрузка ...
-            </div>
+            <div className={styles.dataBNotification}>Загрузка ...</div>
           )}
           {fetchStatus === FetchStatus.Error && (
             <Fragment>

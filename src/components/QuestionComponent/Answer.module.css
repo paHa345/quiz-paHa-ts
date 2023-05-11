@@ -3,8 +3,9 @@
   list-style: none;
   margin: 0.8rem;
   padding-left: 0.8rem;
-  background-color: #ecf2f9;
+  background-color: #c8d9eb;
   border-radius: 1rem;
+  box-shadow: 2px 2px 1px 1px rgb(93 88 113 / 20%);
 }
 
 .unswersElement:hover {

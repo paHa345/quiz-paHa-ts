@@ -1,8 +1,13 @@
 .headerLogo {
-  height: 120px;
+  height: 12rem;
+}
+
+.logoContainer {
+  height: 12rem;
+  width: 12rem;
 }
 
 .headerImg {
-  height: 10rem;
-  width: 10rem;
+  height: 100%;
+  width: 100%;
 }

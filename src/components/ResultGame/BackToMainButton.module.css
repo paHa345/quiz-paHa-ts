@@ -3,6 +3,8 @@
   justify-content: center;
   /* width: 70%; */
   margin-bottom: 3.2rem;
+  border-radius: 1rem;
+  box-shadow: 0.4rem 0.4rem 0.5rem 0.5rem rgb(93 88 113 / 20%);
 }
 
 .cartOrderButton a:link,
@@ -21,7 +23,7 @@
 
 .cartOrderButton a:hover,
 .cartOrderButton a:active {
-  /* background-color: #ecf2f9; */
   background-color: #c8d9eb;
+  /* background-color: #ecf2f9; */
   color: #02101f;
 }
