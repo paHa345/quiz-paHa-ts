@@ -1,3 +1,7 @@
+.headerNav {
+  font-family: "Metropolis1920", sans-serif;
+}
+
 .headerNavList {
   display: flex;
   flex-direction: row;

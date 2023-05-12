@@ -12,14 +12,14 @@
 }
 .leaderBoardElement {
   display: grid;
-  grid-template-columns: 100px auto 10%;
+  grid-template-columns: 6rem auto 8%;
   background-color: rgb(59, 112, 158);
   border-radius: 1rem;
   margin-bottom: 1rem;
 }
 
 .bestClass {
-  scale: 1.05;
+  scale: 1.03;
 }
 .leaderBoardElementIcon {
   display: flex;
