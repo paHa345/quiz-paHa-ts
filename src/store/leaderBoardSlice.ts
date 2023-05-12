@@ -7,18 +7,9 @@ import {
 } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// interface ICurrentLeaders {
-//   id: string;
-//   _id: string;
-//   leaders: {
-//     name: string;
-//     points: string;
-//   }[];
-// }
-
 export const fetchAllGameLeaderBoard = createAsyncThunk(
   "leaderBoardState/fetchAllGameLeaderBoard",
-  async function (_, { rejectWithValue, dispatch }) {
+  async function (_, { rejectWithValue }) {
     try {
       const req = await fetch("./api/leaderBoard/allGameLeaders");
       const leadersData: IDBAllLeadersRequest = await req.json();
@@ -42,7 +33,7 @@ export const fetchLeaderBoardAndSetLeaders = createAsyncThunk(
       points,
       userName,
     }: { currentGameName: string; points: number; userName: string },
-    { rejectWithValue, dispatch }
+    { rejectWithValue }
   ) {
     try {
       const req = await fetch(`./api/leaderBoard/${currentGameName}`);
@@ -70,7 +61,7 @@ export const patchNewLeadersData = createAsyncThunk(
       leadersData: ILeaderTableUser[];
       numberInLeader: number;
     },
-    { rejectWithValue, dispatch }
+    { rejectWithValue }
   ) {
     try {
       const req = await fetch(`./api/leaderBoard/${currentGameName}`, {
@@ -116,11 +107,6 @@ export interface IleaderSlice {
     patchError: string | null;
   };
 }
-
-// interface LeaderBoardAction {
-//   type: string;
-//   payload?: any;
-// }
 
 export const initLeaderBoardState: ILeaderBoardState = {
   leadersData: null,
@@ -187,7 +173,6 @@ export const leaderBoardStateSlice = createSlice({
           let index;
           for (let i = 0; i < sorted.length; i++) {
             if (resultPoints > Number(sorted[i].points)) {
-              // setNumberInLeaderBoard(i);
               state.numberInLeaderBoard = i;
 
               index = i;
@@ -202,15 +187,10 @@ export const leaderBoardStateSlice = createSlice({
           const newLeaderBoard = [...first, leaderObj, ...secound];
           newLeaderBoard.splice(newLeaderBoard.length - 1, 1);
 
-          // setAddResultToLeaderBoard(newLeaderBoard);
           console.log(newLeaderBoard);
           state.newLeaderBoard = newLeaderBoard;
 
           state.inLeadersStatus = true;
-
-          // setInLeaders(true);
-        } else {
-          console.log("NOT");
         }
 
         state.fetchQuestionsStatus = FetchStatus.Resolve;
@@ -227,7 +207,6 @@ export const leaderBoardStateSlice = createSlice({
       state.error = "";
     });
     builder.addCase(patchNewLeadersData.fulfilled, (state, action) => {
-      console.log(action.payload.numberInLeader);
       state.patchLeaderStatus = FetchStatus.Resolve;
     });
     builder.addCase(patchNewLeadersData.rejected, (state, action) => {
@@ -241,16 +220,12 @@ export const leaderBoardStateSlice = createSlice({
       state.error = "";
     });
     builder.addCase(fetchAllGameLeaderBoard.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.leadersData = action.payload;
-
       state.fetchQuestionsStatus = FetchStatus.Resolve;
     });
     builder.addCase(fetchAllGameLeaderBoard.rejected, (state, action) => {
       state.fetchQuestionsStatus = FetchStatus.Error;
       if (typeof action.payload === "string") {
-        console.log(action.payload);
-
         state.error = action.payload;
       }
     });

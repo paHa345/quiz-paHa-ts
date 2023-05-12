@@ -10,7 +10,6 @@ const FooterLogo = () => {
         priority
         height={120}
         width={120}
-        // objectFit="cover"
         src="/mainLogo2.png"
         alt="logo"
       />

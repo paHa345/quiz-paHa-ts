@@ -1,20 +1,10 @@
 import {
   FetchStatus,
-  IDBGameName,
   IDBGameQuestions,
-  IDBGameRequst,
   IDBQuestion,
   IUserAnswer,
 } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { appStateActions } from "./app-stateSlice";
-
-// async function fetchQuestions() {
-//   const request = await fetch(`../api/games/${currentGameName}`);
-//   const data: { status: string; item: IDBGameQuestions } =
-//     await request.json();
-//   dispatch(gameActions.setQuestions(data.item));
-// }
 
 export const fetchQuestionsAndSetCurrent = createAsyncThunk(
   "gameState/fetchQuestionsAndSetCurrent",
@@ -168,7 +158,7 @@ export const gameSlice = createSlice({
     setPointsAfterQuestion(state, action: { type: string; payload: number }) {
       state.points = state.points + action.payload + state.questionTime;
     },
-    resetPoints(state, action: { type: string; payload: number }) {
+    resetPoints(state) {
       state.points = 0;
     },
     setInGameStatus(state, action: { type: string; payload: boolean }) {
@@ -211,7 +201,6 @@ export const gameSlice = createSlice({
       state.error = "";
     });
     builder.addCase(fetchQuestionsAndSetCurrent.fulfilled, (state, action) => {
-      console.log("ok");
       state.currentQuestionNumber = 0;
       if (state.questions !== null) {
         state.currentQuestion = state.questions.questions[0];

@@ -21,10 +21,7 @@ const GoGame = () => {
     (state: IGameSlice) => state.gameState.questions
   );
 
-  console.log(questions?.questions);
-
   const name = useSelector((state: IAppStateSlice) => state.appState.name);
-  console.log(name);
 
   const currentGameName = useSelector(
     (state: IAppStateSlice) => state.appState.currentGamename
@@ -44,8 +41,6 @@ const GoGame = () => {
 
   const fetchError = useSelector((state: IGameSlice) => state.gameState.error);
 
-  console.log(gameStatus);
-
   const clickGoGameButtonHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     dispatch(gameActions.setStartGameStatus(true));
@@ -62,18 +57,6 @@ const GoGame = () => {
       dispatch(fetchQuestionsAndSetCurrent(currentGameName));
     }
   }, []);
-
-  // useEffect(() => {
-  //   dispatch(gameActions.setCurrentQuestionNumber(0));
-
-  //   if (questions) {
-  //     dispatch(
-  //       gameActions.setCurrentQuestion(
-  //         questions?.questions[currentQuestionNumber]
-  //       )
-  //     );
-  //   }
-  // }, [questions]);
 
   return (
     <Fragment>

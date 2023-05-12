@@ -9,14 +9,7 @@
 }
 
 html {
-  /* font-size: 10px; */
   font-size: 62.5%;
-}
-
-:root {
-  /* --foreground-rgb: 0, 0, 0; */
-  /* --background-start-rgb: 214, 219, 220; */
-  /* --background-end-rgb: 255, 255, 255; */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -39,14 +32,12 @@ body {
 
 @media (max-width: 53em) {
   html {
-    /* font-size: 10px; */
     font-size: 50%;
   }
 }
 
 @media (max-width: 26em) {
   html {
-    /* font-size: 10px; */
     font-size: 35%;
   }
 }

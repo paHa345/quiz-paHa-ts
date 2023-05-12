@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import MarkerContainer from "../MarkerTitleComponent/MarkerContainer";
 import QuestionContainer from "../QuestionComponent/QuestionContainer";
 import TimerSection from "../TimerComponent/TimerSection";
 import styles from "./Game.module.css";
@@ -27,8 +26,6 @@ const Game = () => {
           <div className={styles.questionsInfo}>
             {showTimer && <TimerSection></TimerSection>}
             {timeIsUpNotification && <TimeIsUpContainer></TimeIsUpContainer>}
-
-            {/* <MarkerContainer></MarkerContainer> */}
             <div className={styles.currentPointsContainer}>
               <p>Заработано баллов</p>
               {currentPoints}
