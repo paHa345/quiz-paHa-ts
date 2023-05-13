@@ -211,7 +211,6 @@ export const gameSlice = createSlice({
       state.error = "";
     });
     builder.addCase(fetchQuestionsAndSetCurrent.fulfilled, (state, action) => {
-      console.log("ok");
       state.currentQuestionNumber = 0;
       if (state.questions !== null) {
         state.currentQuestion = state.questions.questions[0];

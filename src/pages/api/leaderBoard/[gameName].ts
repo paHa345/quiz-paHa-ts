@@ -49,12 +49,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
   if (req.method === "PATCH") {
     console.log(req.body);
-    // if (req.body.serverSecret !== "paHa345") {
-    //   res
-    //     .status(404)
-    //     .json({ message: "error", item: "Неавторизованный запрос" });
-    //   return;
-    // }
+    if (req.body.serverSecret !== process.env.NEXT_PUBLIC_SECRET) {
+      res
+        .status(404)
+        .json({ message: "error", item: "Неавторизованный запрос" });
+      return;
+    }
 
     try {
       const db = client.db();

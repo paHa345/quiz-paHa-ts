@@ -69,7 +69,10 @@ export const patchNewLeadersData = createAsyncThunk(
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
-        body: JSON.stringify({ leadersData, serverSecret: process.env.SECRET }),
+        body: JSON.stringify({
+          leadersData,
+          serverSecret: process.env.NEXT_PUBLIC_SECRET,
+        }),
       });
       const data = await req.json();
       if (!req.ok) {

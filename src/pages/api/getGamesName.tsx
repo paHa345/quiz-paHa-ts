@@ -29,6 +29,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
   if (req.method === "GET") {
+    console.log(process.env.NEXT_PUBLIC_SECRET);
+
     try {
       const db = client.db();
 
