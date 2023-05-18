@@ -2,9 +2,11 @@
 
 Посмотреть проект по ссылке https://quiz-pa-ha-ts.vercel.app/
 
-<div style="text-align: center;">
-![alt text](https://markdown.land/wp-content/uploads/2021/06/markdown-512px.png "Our logo")
-</div>
+<p align="center">
+  <img src="https://github.com/paHa345/quiz-paHa-ts/assets/55974360/2ace1848-3f38-469f-857a-3212b084a572" />
+</p>
+
+
 <div style="text-align: center;">
 <img 
     style="display: block; 
