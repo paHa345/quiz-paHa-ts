@@ -1,6 +1,10 @@
 <h1 align="center">Space Quiz</h1>
 
 Посмотреть проект по ссылке https://quiz-pa-ha-ts.vercel.app/
+
+<div style="text-align: center;">
+![alt text](https://markdown.land/wp-content/uploads/2021/06/markdown-512px.png "Our logo")
+</div>
 <div style="text-align: center;">
 <img 
     style="display: block; 
