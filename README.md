@@ -2,7 +2,7 @@
 
 Посмотреть проект по ссылке https://quiz-pa-ha-ts.vercel.app/
 <div style="text-align: center;">
-![2023-05-18_13-42-19](https://github.com/paHa345/quiz-paHa-ts/assets/55974360/2ace1848-3f38-469f-857a-3212b084a572)
+![2023-05-18_13-42-19](https://github.com/paHa345/quiz-paHa-ts/assets/55974360/2ace1848-3f38-469f-857a-3212b084a572 'Logo')
 </div>
 
 <img 
