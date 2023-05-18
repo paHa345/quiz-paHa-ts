@@ -10,7 +10,7 @@
            margin-left: auto;
            margin-right: auto;
            width: 30%;"
-    src="https://markdown.land/wp-content/uploads/2021/06/markdown-512px.png" 
+    src="[https://markdown.land/wp-content/uploads/2021/06/markdown-512px.png](https://github.com/paHa345/quiz-paHa-ts/assets/55974360/2ace1848-3f38-469f-857a-3212b084a572)" 
     alt="Our logo">
 </img>
 
