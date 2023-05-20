@@ -1,11 +1,11 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import styles from "./ResultGame.module.css";
 import { useSelector } from "react-redux";
 import { IGameSlice, gameActions } from "@/store/gameSlice";
-import { IAppStateSlice, appStateActions } from "@/store/app-stateSlice";
+import { IAppStateSlice } from "@/store/app-stateSlice";
 import MainResult from "./MainResult";
 import InLeaderTable from "./InLeaderTable";
-import { FetchStatus, ILeadersTableRequest } from "@/types";
+import { FetchStatus } from "@/types";
 import { useDispatch } from "react-redux";
 import BackToMainButton from "./BackToMainButton";
 import AnswersTable from "./AnswersTable";

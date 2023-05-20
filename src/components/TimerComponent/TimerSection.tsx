@@ -1,13 +1,10 @@
-import { useSelector } from "react-redux";
 import Timer from "./Timer";
 import styles from "./TimerSection.module.css";
-import { IGameSlice, gameActions } from "@/store/gameSlice";
+import { gameActions } from "@/store/gameSlice";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const TimerSection = () => {
-  // const time = useSelector((state: IGameSlice) => state.gameState.questionTime);
-
   const dispatch = useDispatch();
   useEffect(() => {
     const timer = setInterval(() => {

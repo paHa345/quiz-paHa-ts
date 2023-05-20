@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import styles from "./Timer.module.css";
-import { IGameSlice, gameActions } from "@/store/gameSlice";
+import { IGameSlice } from "@/store/gameSlice";
 
 interface ITimerProps {
   time: number;

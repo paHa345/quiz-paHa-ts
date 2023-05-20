@@ -2,9 +2,8 @@ import React from "react";
 import styles from "./StartGameButton.module.css";
 import { useDispatch } from "react-redux";
 import { appStateActions } from "@/store/app-stateSlice";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { gameActions } from "@/store/gameSlice";
-import { REACT_LOADABLE_MANIFEST } from "next/dist/shared/lib/constants";
 
 interface IStartGameButtonProps {
   userName: string;

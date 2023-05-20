@@ -12,9 +12,6 @@ const QuestionMarkersContainer = () => {
     (state: IGameSlice) => state.gameState.currentQuestionNumber
   );
 
-  // const numbersOfQuestions = [1, 2, 3, 4, 5, 6];
-  // const isCurrent = 4;
-
   return (
     <div className={styles.questionMarkers}>
       {numberQuestions?.questions.map((question, index) => {

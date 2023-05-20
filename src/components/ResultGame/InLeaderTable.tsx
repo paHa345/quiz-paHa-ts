@@ -16,44 +16,13 @@ interface lLeadersData {
 
 const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
   const dispatch = useDispatch<AppDispatch>();
-
-  const currentLeaderData = useSelector(
-    (state: IleaderSlice) => state.leaderState.currentLeadersData
-  );
-
   const currentGameName = useSelector(
     (state: IAppStateSlice) => state.appState.currentGamename
   );
-
   const patchStatus = useSelector(
     (state: IleaderSlice) => state.leaderState.patchLeaderStatus
   );
-
-  const patchError = useSelector(
-    (state: IleaderSlice) => state.leaderState.patchError
-  );
-
   const [table, setTable] = useState<JSX.Element[]>();
-
-  const [successAddToDb, setSuccessAddToDb] = useState<boolean>(false);
-
-  // async function setNewLeaderBoardTable(leadersData: ILeaderTableUser[]) {
-  //   const req = await fetch(`./api/leaderBoard/${currentGameName}`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-type": "application/json; charset=UTF-8",
-  //     },
-  //     body: JSON.stringify({ leadersData, serverSecret: process.env.SECRET }),
-  //   });
-  //   const data = await req.json();
-  //   console.log(data);
-  //   if (data.message === "success") {
-  //     setSuccessAddToDb(true);
-  //     setTimeout(() => {
-  //       setSuccessAddToDb(false);
-  //     }, 2000);
-  //   }
-  // }
 
   useEffect(() => {
     if (currentGameName) {
@@ -118,7 +87,6 @@ const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
           );
         });
       setTable(tableEl);
-      // setNewLeaderBoardTable(leadersData);
     }
   }, []);
 
@@ -127,7 +95,7 @@ const InLeaderTable = ({ leadersData, numberInLeader }: lLeadersData) => {
   return (
     <Fragment>
       <h1 className={styles.leaderBoardHeader}>
-        И заняли почётной место в таблице лидеров
+        И заняли почётное место в таблице лидеров
       </h1>
 
       <div className={styles.leaderBoardTableContainer}>{table}</div>

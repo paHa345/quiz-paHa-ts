@@ -7,8 +7,6 @@ import { IGameSlice, gameActions } from "@/store/gameSlice";
 import { useDispatch } from "react-redux";
 import FinishGameButton from "./FinishGameButton";
 import { useRouter } from "next/router";
-import Timer from "../TimerComponent/Timer";
-import TimerSection from "../TimerComponent/TimerSection";
 import { appStateActions } from "@/store/app-stateSlice";
 
 const QuestionContainer = () => {

@@ -7,8 +7,7 @@ import {
   appStateActions,
   fetchGameNames,
 } from "@/store/app-stateSlice";
-import { FetchStatus, IDBGameName, IDBGameQuestions } from "@/types";
-import { IGameSlice, gameActions } from "@/store/gameSlice";
+import { FetchStatus } from "@/types";
 import { AppDispatch } from "@/store";
 
 const ChooseGame = () => {
@@ -28,10 +27,6 @@ const ChooseGame = () => {
   const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(appStateActions.setCurrentGameName(e.target.value));
   };
-
-  const status = useSelector(
-    (state: IAppStateSlice) => state.appState.fetchGameNamesStatus
-  );
 
   let gamesNameOption;
 

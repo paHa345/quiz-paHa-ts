@@ -1,20 +1,10 @@
 import {
   FetchStatus,
-  IDBGameName,
   IDBGameQuestions,
-  IDBGameRequst,
   IDBQuestion,
   IUserAnswer,
 } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { appStateActions } from "./app-stateSlice";
-
-// async function fetchQuestions() {
-//   const request = await fetch(`../api/games/${currentGameName}`);
-//   const data: { status: string; item: IDBGameQuestions } =
-//     await request.json();
-//   dispatch(gameActions.setQuestions(data.item));
-// }
 
 export const fetchQuestionsAndSetCurrent = createAsyncThunk(
   "gameState/fetchQuestionsAndSetCurrent",

@@ -43,9 +43,6 @@ const SetGameData = () => {
         </div>
         <ChooseGame></ChooseGame>
 
-        {/* {!name && !currentGameName && (
-          <div ></div>
-        )} */}
         <div className={styles.startGameContainer}>
           {name.trim().length > 0 && currentGameName && (
             <StartGameButton userName={name}></StartGameButton>

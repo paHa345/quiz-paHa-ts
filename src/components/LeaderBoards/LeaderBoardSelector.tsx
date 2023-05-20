@@ -12,10 +12,6 @@ const LeaderBoardSelector = () => {
     (state: IleaderSlice) => state.leaderState.leadersData
   );
 
-  const currentLeaders = useSelector(
-    (state: any) => state.leaderState.currentLeadersData
-  );
-
   const dispatch = useDispatch();
 
   const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {

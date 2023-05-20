@@ -7,7 +7,6 @@ import {
   IleaderSlice,
   fetchAllGameLeaderBoard,
   leaderBoardStateActions,
-  leaderBoardStateSlice,
 } from "@/store/leaderBoardSlice";
 import { useSelector } from "react-redux";
 import { appStateActions } from "@/store/app-stateSlice";
@@ -16,10 +15,6 @@ import { FetchStatus, IDBLeaderBoard } from "@/types";
 import { AppDispatch } from "@/store";
 
 const LederBoadsContainer = () => {
-  const leaderData = useSelector(
-    (state: IleaderSlice) => state.leaderState.leadersData
-  );
-
   const currentLeaders = useSelector(
     (state: IleaderSlice) => state.leaderState.currentLeadersData
   );
@@ -41,28 +36,6 @@ const LederBoadsContainer = () => {
     dispatch(leaderBoardStateActions.setLeadersData(null));
     dispatch(leaderBoardStateActions.setCurrentLeadersData(null));
     dispatch(fetchAllGameLeaderBoard());
-
-    // async function fetchLeadersData() {
-    //   const req = await fetch("./api/leaderBoard/allGameLeaders");
-    //   const LeadersData = await req.json();
-
-    //   if (!req.ok) {
-    //     dispatch(leaderBoardStateActions.setLeadersData(LeadersData.message));
-    //     return;
-    //   }
-
-    //   if (LeadersData.message === "error") {
-    //     dispatch(
-    //       leaderBoardStateActions.setLeadersData("Не удалось получить данные")
-    //     );
-    //     return;
-    //   }
-
-    //   const leadersData: IDBLeaderBoard[] = LeadersData.item;
-    //   dispatch(leaderBoardStateActions.setLeadersData(leadersData));
-    // }
-
-    // fetchLeadersData();
   }, [dispatch]);
   return (
     <div className={styles.mainLeaderBoard}>
