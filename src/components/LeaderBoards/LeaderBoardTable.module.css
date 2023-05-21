@@ -16,10 +16,15 @@
   background-color: rgb(59, 112, 158);
   border-radius: 1rem;
   margin-bottom: 1rem;
+  transition: opacity 1s ease 0.5s;
+}
+
+.leaderBoardElement:hover {
+  box-shadow: 2px 2px 1px 1px rgba(93, 88, 113, 0.202);
 }
 
 .bestClass {
-  scale: 1.03;
+  scale: 1.02;
 }
 .leaderBoardElementIcon {
   display: flex;
@@ -33,8 +38,7 @@
 .leaderBoardElementName {
   text-decoration: underline;
 }
-.leaderBoardElementPoint {
-}
+
 .leaderBoardElementPlace {
   display: flex;
   align-items: center;
