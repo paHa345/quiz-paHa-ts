@@ -12,6 +12,20 @@ html {
   font-size: 62.5%;
 }
 
+.notFoundContainer {
+  padding-top: 20rem;
+  height: calc(100vh - 10rem - 30rem);
+  margin-left: 10rem;
+  font-size: 3rem;
+}
+
+.notFoundTextContainer {
+  display: flex;
+  padding-top: calc((100vh - 20rem - 60rem) / 2);
+  justify-content: center;
+  font-weight: 600;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

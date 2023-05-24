@@ -34,6 +34,7 @@ const SetGameData = () => {
         <div className={styles.loginFormElement}>
           <label htmlFor="name">Введите имя</label>
           <input
+            className={styles.textInput}
             onChange={setNameHandler}
             value={name}
             id="name"

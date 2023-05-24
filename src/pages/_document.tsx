@@ -19,7 +19,7 @@ export default function Document() {
         ></link>
 
         <link
-          href="https://fonts.cdnfonts.com/css/cmu-typewriter-text"
+          href="https://fonts.cdnfonts.com/css/montserrat"
           rel="stylesheet"
         ></link>
       </Head>

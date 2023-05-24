@@ -28,6 +28,9 @@
 .loginForm:hover {
   opacity: 0.9;
 }
+.textInput {
+  font-family: "Montserrat", sans-serif;
+}
 
 .loginFormElement {
   display: flex;
